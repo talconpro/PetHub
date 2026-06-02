@@ -1,22 +1,1139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PetHub — Codex Pet Gallery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root{--abyss:#050507;--carbon:#101010;--signal:#00d992;--mint:#2fd6a1;--snow:#f2f2f2;--parchment:#b8b3b0;--slate:#8b949e;--danger:#fb565b;--warning:#ffba00;--info:#4cb3d4;--line:rgba(184,179,176,.16);--line-strong:rgba(184,179,176,.28);--ambient:rgba(92,88,85,.2) 0 0 15px;--dramatic:rgba(0,0,0,.7) 0 20px 60px;--radius-sm:6px;--radius-md:8px;--heading:system-ui,sans-serif;--body:Inter,system-ui,sans-serif;--mono:SFMono-Regular,Menlo,Monaco,Consolas,monospace}
-*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{min-height:100vh;overflow-x:hidden;background:var(--abyss);color:var(--snow);font-family:var(--body);position:relative}body:before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(680px 420px at 18% -8%,rgba(0,217,146,.16),transparent 62%),radial-gradient(520px 360px at 86% 4%,rgba(76,179,212,.12),transparent 58%),linear-gradient(180deg,rgba(16,16,16,.96),rgba(5,5,7,.98) 42%,#050507)}body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.52;background:linear-gradient(rgba(184,179,176,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(184,179,176,.04) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.18) 55%,rgba(0,0,0,.46))}.wrap{max-width:1240px;margin:auto;padding:0 clamp(16px,4vw,44px);position:relative;z-index:1}.topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 0 18px;flex-wrap:wrap;border-bottom:1px solid rgba(184,179,176,.08)}.brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;border-radius:var(--radius-md);display:grid;place-items:center;background:linear-gradient(180deg,#161616,#0b0b0c);border:1px solid var(--line-strong);box-shadow:var(--ambient),inset 0 1px 0 rgba(242,242,242,.08)}.mark svg,.mark img{width:24px;height:24px;object-fit:contain;image-rendering:pixelated}.brand b{font-family:var(--heading);font-size:1.38rem;font-weight:800;letter-spacing:-.04em}.brand b span{color:var(--signal)}.brand small{display:block;font-size:.62rem;color:var(--slate);letter-spacing:.22em;text-transform:uppercase;margin-top:1px;font-family:var(--mono)}.top-actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 10px;border-radius:var(--radius-sm);border:1px solid var(--line);color:var(--parchment);display:flex;align-items:center;gap:7px;background:rgba(16,16,16,.78);box-shadow:inset 0 1px 0 rgba(242,242,242,.04)}.dot{width:7px;height:7px;border-radius:99px;background:var(--signal);box-shadow:0 0 14px rgba(0,217,146,.8)}.btn{font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;cursor:pointer;padding:10px 14px;border-radius:var(--radius-md);color:#04100b;font-weight:700;background:var(--signal);border:1px solid rgba(0,217,146,.86);box-shadow:0 0 0 1px rgba(242,242,242,.04),0 12px 30px rgba(0,217,146,.14);transition:.16s;text-decoration:none}.btn:hover{transform:translateY(-2px);background:var(--mint);box-shadow:0 16px 36px rgba(0,217,146,.2),0 0 0 1px rgba(47,214,161,.28)}.hero{padding:58px 0 38px}.hero-inner{max-width:840px}.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--signal);margin-bottom:18px;padding:8px 10px;border-radius:var(--radius-sm);background:rgba(0,217,146,.07);border:1px solid rgba(0,217,146,.18)}.eyebrow:before{content:"";width:6px;height:6px;background:var(--signal);box-shadow:0 0 10px rgba(0,217,146,.9);border-radius:99px}h1{font-family:var(--heading);font-size:clamp(2.8rem,8vw,6.2rem);font-weight:800;line-height:.92;letter-spacing:-.075em;color:var(--snow);max-width:900px}h1 em{font-style:normal;color:var(--signal)}.hero p{max-width:680px;margin:22px 0 0;color:var(--parchment);font-size:1rem;line-height:1.75}.hero code{font-family:var(--mono);color:var(--mint);background:rgba(0,217,146,.08);padding:2px 5px;border-radius:var(--radius-sm)}.stats{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap}.stat{min-width:132px;padding:14px;border-radius:var(--radius-md);background:linear-gradient(180deg,rgba(16,16,16,.86),rgba(16,16,16,.62));border:1px solid var(--line);box-shadow:var(--ambient)}.stat b{font-family:var(--heading);font-size:1.9rem;font-weight:800;display:block;line-height:1;color:var(--snow)}.stat span{font-family:var(--mono);font-size:.56rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate);margin-top:7px;display:block}.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:8px 0 22px;padding:12px;border:1px solid var(--line);border-radius:var(--radius-md);background:rgba(16,16,16,.74);box-shadow:var(--ambient)}.search{position:relative;flex:1;min-width:220px}.search span{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--signal);font-family:var(--mono)}input,select{font-family:var(--mono);font-size:.78rem;color:var(--snow);background:#0a0a0b;border:1px solid var(--line);border-radius:var(--radius-sm);outline:none}input{width:100%;padding:12px 12px 12px 36px}input::placeholder{color:var(--slate)}input:focus,select:focus{border-color:rgba(0,217,146,.62);box-shadow:0 0 0 3px rgba(0,217,146,.1)}select{padding:11px 12px;cursor:pointer}select option{background:var(--carbon)}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;cursor:pointer;padding:8px 10px;border-radius:var(--radius-sm);border:1px solid var(--line);color:var(--parchment);background:rgba(61,58,57,.18);transition:.18s;white-space:nowrap}.chip:hover{color:var(--snow);border-color:rgba(0,217,146,.38)}.chip.on{background:var(--signal);color:#04100b;border-color:var(--signal);font-weight:700}.panel{background:rgba(16,16,16,.82);border:1px solid var(--line);border-radius:var(--radius-md);padding:12px;margin-bottom:56px;box-shadow:var(--dramatic),var(--ambient);position:relative}.panel:before{content:"";position:absolute;inset:0;border-radius:var(--radius-md);pointer-events:none;border-top:1px solid rgba(242,242,242,.06)}.plaque{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin:0 0 12px;padding:12px;border-radius:var(--radius-sm);background:#0a0a0b;border:1px solid rgba(184,179,176,.12)}.plaque h2{font-family:var(--mono);font-size:.84rem;font-weight:700;color:var(--snow);letter-spacing:.03em}.plaque span{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--slate)}.gallery{border-radius:var(--radius-sm);padding:clamp(12px,2.2vw,24px);background:linear-gradient(180deg,rgba(5,5,7,.74),rgba(16,16,16,.5));border:1px solid rgba(184,179,176,.09)}.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}.empty{grid-column:1/-1;text-align:center;padding:76px 20px;color:var(--slate)}.empty b{font-family:var(--heading);font-size:1.45rem;color:var(--snow);display:block;margin-bottom:10px}.empty p{max-width:620px;margin:0 auto 22px;line-height:1.7;color:var(--parchment)}.empty .btn{display:inline-flex}.card{--accent:var(--signal);background:linear-gradient(180deg,rgba(16,16,16,.96),rgba(16,16,16,.74));border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;cursor:pointer;display:flex;flex-direction:column;box-shadow:0 12px 30px rgba(0,0,0,.28);transition:.22s;opacity:0;transform:translateY(14px);animation:rise .45s cubic-bezier(.2,.8,.2,1) forwards}@keyframes rise{to{opacity:1;transform:none}}.card:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--accent) 56%,var(--line));box-shadow:0 20px 44px rgba(0,0,0,.52),0 0 18px color-mix(in srgb,var(--accent) 16%,transparent)}.niche{position:relative;height:300px;overflow:hidden;background:radial-gradient(65% 60% at 50% 44%,color-mix(in srgb,var(--accent) 30%,transparent),transparent 64%),linear-gradient(180deg,#101010 0%,#080809 68%,#050507 100%);border-bottom:1px solid rgba(184,179,176,.1)}.spot{position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:250px;height:300px;background:radial-gradient(circle at 50% 42%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 58%);filter:blur(8px);opacity:.95}.pet{position:absolute;left:50%;top:42px;transform:translateX(-50%);width:220px;height:220px;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--accent) 70%,transparent)) drop-shadow(0 16px 20px rgba(0,0,0,.56));animation:bob 4.4s ease-in-out infinite}@keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}.card:hover .pet{animation-duration:2s}.pet svg,.pet img{width:100%;height:100%;display:block;object-fit:contain;image-rendering:pixelated}.shelf{position:absolute;left:12%;right:12%;bottom:60px;height:1px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--accent) 58%,#fff),transparent);opacity:.42;box-shadow:0 0 12px color-mix(in srgb,var(--accent) 38%,transparent)}.badge{position:absolute;top:18px;left:18px;font-family:var(--mono);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;padding:7px 10px;border-radius:var(--radius-sm);font-weight:700;border:1px solid rgba(0,217,146,.3);color:var(--signal);background:rgba(0,217,146,.09)}.idx{position:absolute;top:24px;right:20px;font-family:var(--mono);font-size:.68rem;color:var(--slate);letter-spacing:.08em}.label{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}.namerow{display:flex;align-items:baseline;justify-content:space-between;gap:8px}.namerow h3{font-family:var(--heading);font-size:1.5rem;font-weight:800;letter-spacing:-.05em}.species{font-family:var(--mono);font-size:.68rem;color:var(--warning);letter-spacing:.03em;white-space:nowrap}.desc{font-size:.9rem;line-height:1.55;color:var(--parchment);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.actions{display:grid;grid-template-columns:minmax(0,1fr) 48px 48px;gap:8px;margin-top:auto}.open-btn,.icon-btn{height:48px;border-radius:var(--radius-sm);font-family:var(--mono);cursor:pointer;transition:.18s}.open-btn{color:#04100b;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--signal);border:1px solid rgba(0,217,146,.86);font-size:.72rem;font-weight:800}.open-btn:hover{background:var(--mint)}.icon-btn{display:grid;place-items:center;color:var(--slate);background:#0a0a0b;border:1px solid var(--line);line-height:1}.icon-btn svg{width:20px;height:20px;fill:currentColor}.github:hover{color:var(--snow);border-color:rgba(242,242,242,.28)}.star{font-size:1.45rem;font-weight:400}.star:hover{color:var(--warning);border-color:rgba(255,186,0,.36)}.star.on{color:#050507;background:var(--warning);border-color:var(--warning)}footer{text-align:center;padding:0 0 60px;color:var(--slate);font-size:.72rem;line-height:2}footer a{color:var(--signal);text-decoration:none}footer a:hover{text-decoration:underline}.overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(5,5,7,.78);backdrop-filter:blur(8px)}.overlay.open{display:flex;animation:fade .2s ease}@keyframes fade{from{opacity:0}to{opacity:1}}.modal{--accent:var(--signal);width:min(620px,calc(100vw - 32px));max-height:90vh;overflow:auto;overflow-x:hidden;border-radius:var(--radius-md);background:linear-gradient(180deg,#101010,#080809);border:1px solid var(--line-strong);box-shadow:var(--dramatic),0 0 24px color-mix(in srgb,var(--accent) 14%,transparent);animation:pop .22s cubic-bezier(.2,.9,.3,1)}@keyframes pop{from{transform:scale(.96);opacity:0}to{transform:scale(1);opacity:1}}.modal-top{height:300px;position:relative;display:grid;place-items:center;overflow:hidden;background:radial-gradient(70% 90% at 50% 0%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 65%),linear-gradient(180deg,#101010,#050507)}.bigpet{width:220px;height:220px;animation:bob 4s ease-in-out infinite;filter:drop-shadow(0 0 24px color-mix(in srgb,var(--accent) 76%,transparent)) drop-shadow(0 12px 18px rgba(0,0,0,.55))}.bigpet svg,.bigpet img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:var(--radius-sm);cursor:pointer;background:#0a0a0b;border:1px solid var(--line);color:var(--snow);font-size:1rem}.close:hover{border-color:rgba(251,86,91,.42);color:var(--danger)}.modal-body{padding:22px 24px 24px;overflow-x:hidden}.hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}.hd h2{font-family:var(--heading);font-size:2rem;font-weight:800;letter-spacing:-.04em}.sp{font-family:var(--mono);font-size:.68rem;color:var(--accent)}.d{font-size:.98rem;line-height:1.65;color:var(--parchment);margin:14px 0 18px}.grid2{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.box{background:#0a0a0b;border:1px solid rgba(184,179,176,.12);border-radius:var(--radius-sm);padding:10px 8px;text-align:center;min-width:0}.box b{display:block;font-family:var(--mono);font-size:.9rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--snow)}.box span{font-family:var(--mono);font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);display:block;margin-top:4px}.install{display:grid;gap:10px;background:#0a0a0b;border:1px solid rgba(184,179,176,.12);border-radius:var(--radius-md);padding:14px;margin-top:4px;max-width:100%;overflow:hidden}.install h3{font-family:var(--mono);font-size:.76rem;color:var(--signal);letter-spacing:.12em;text-transform:uppercase}.install-row{display:grid;grid-template-columns:minmax(0,1fr) max-content;align-items:center;gap:10px;min-width:0;max-width:100%;overflow:hidden}.install code{display:block;min-width:0;color:var(--parchment);font-family:var(--mono);font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.install button{min-width:92px;max-width:136px;font-family:var(--mono);font-size:.62rem;letter-spacing:.04em;text-transform:uppercase;cursor:pointer;padding:8px 10px;border-radius:var(--radius-sm);color:#04100b;font-weight:700;background:var(--signal);border:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.install button:hover{background:var(--mint)}.foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;font-size:.68rem;color:var(--slate);flex-wrap:wrap}.foot a{color:var(--signal);text-decoration:none}.foot a:hover{text-decoration:underline}.lic{font-family:var(--mono);padding:4px 7px;border:1px solid rgba(184,179,176,.12);border-radius:var(--radius-sm);letter-spacing:.06em;background:rgba(61,58,57,.14);color:var(--parchment)}.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);z-index:1100;opacity:0;pointer-events:none;transition:.25s;background:#101010;border:1px solid rgba(0,217,146,.28);color:var(--snow);padding:12px 16px;border-radius:var(--radius-md);font-size:.78rem;box-shadow:var(--dramatic),0 0 16px rgba(0,217,146,.12);display:flex;align-items:center;gap:10px}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.toast .ck{color:var(--signal)}@media(max-width:560px){.hero{padding-top:36px}.stats{gap:10px}.stat{min-width:46%;padding:12px 10px}.grid{grid-template-columns:1fr}.niche{height:280px}.pet{width:200px;height:200px;top:38px}.grid2{grid-template-columns:repeat(2,1fr)}.hd h2{font-size:1.7rem}.install-row{grid-template-columns:1fr}.install button{width:100%;max-width:none}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetHub — Codex Pet Gallery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --abyss: #050507;
+            --carbon: #101010;
+            --signal: #00d992;
+            --mint: #2fd6a1;
+            --snow: #f2f2f2;
+            --parchment: #b8b3b0;
+            --slate: #8b949e;
+            --danger: #fb565b;
+            --warning: #ffba00;
+            --info: #4cb3d4;
+            --line: rgba(184, 179, 176, .16);
+            --line-strong: rgba(184, 179, 176, .28);
+            --ambient: rgba(92, 88, 85, .2) 0 0 15px;
+            --dramatic: rgba(0, 0, 0, .7) 0 20px 60px;
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --heading: system-ui, sans-serif;
+            --body: Inter, system-ui, sans-serif;
+            --mono: SFMono-Regular, Menlo, Monaco, Consolas, monospace
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        body {
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: var(--abyss);
+            color: var(--snow);
+            font-family: var(--body);
+            position: relative
+        }
+
+        body:before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(680px 420px at 18% -8%, rgba(0, 217, 146, .16), transparent 62%), radial-gradient(520px 360px at 86% 4%, rgba(76, 179, 212, .12), transparent 58%), linear-gradient(180deg, rgba(16, 16, 16, .96), rgba(5, 5, 7, .98) 42%, #050507)
+        }
+
+        body:after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: .52;
+            background: linear-gradient(rgba(184, 179, 176, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(184, 179, 176, .04) 1px, transparent 1px);
+            background-size: 36px 36px;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, .62), rgba(0, 0, 0, .18) 55%, rgba(0, 0, 0, .46))
+        }
+
+        .wrap {
+            max-width: 1240px;
+            margin: auto;
+            padding: 0 clamp(16px, 4vw, 44px);
+            position: relative;
+            z-index: 1
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 24px 0 18px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(184, 179, 176, .08)
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .mark {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-md);
+            display: grid;
+            place-items: center;
+            background: linear-gradient(180deg, #161616, #0b0b0c);
+            border: 1px solid var(--line-strong);
+            box-shadow: var(--ambient), inset 0 1px 0 rgba(242, 242, 242, .08)
+        }
+
+        .mark svg,
+        .mark img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            image-rendering: pixelated
+        }
+
+        .brand b {
+            font-family: var(--heading);
+            font-size: 1.38rem;
+            font-weight: 800;
+            letter-spacing: -.04em
+        }
+
+        .brand b span {
+            color: var(--signal)
+        }
+
+        .brand small {
+            display: block;
+            font-size: .62rem;
+            color: var(--slate);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            margin-top: 1px;
+            font-family: var(--mono)
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center
+        }
+
+        .pill {
+            font-family: var(--mono);
+            font-size: .66rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 7px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            color: var(--parchment);
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(16, 16, 16, .78);
+            box-shadow: inset 0 1px 0 rgba(242, 242, 242, .04)
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 99px;
+            background: var(--signal);
+            box-shadow: 0 0 14px rgba(0, 217, 146, .8)
+        }
+
+        .btn {
+            font-family: var(--mono);
+            font-size: .72rem;
+            letter-spacing: .04em;
+            cursor: pointer;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            color: #04100b;
+            font-weight: 700;
+            background: var(--signal);
+            border: 1px solid rgba(0, 217, 146, .86);
+            box-shadow: 0 0 0 1px rgba(242, 242, 242, .04), 0 12px 30px rgba(0, 217, 146, .14);
+            transition: .16s;
+            text-decoration: none
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: var(--mint);
+            box-shadow: 0 16px 36px rgba(0, 217, 146, .2), 0 0 0 1px rgba(47, 214, 161, .28)
+        }
+
+        .hero {
+            padding: 58px 0 38px
+        }
+
+        .hero-inner {
+            max-width: 840px
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--mono);
+            font-size: .7rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--signal);
+            margin-bottom: 18px;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            background: rgba(0, 217, 146, .07);
+            border: 1px solid rgba(0, 217, 146, .18)
+        }
+
+        .eyebrow:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--signal);
+            box-shadow: 0 0 10px rgba(0, 217, 146, .9);
+            border-radius: 99px
+        }
+
+        h1 {
+            font-family: var(--heading);
+            font-size: clamp(2.8rem, 8vw, 6.2rem);
+            font-weight: 800;
+            line-height: .92;
+            letter-spacing: -.075em;
+            color: var(--snow);
+            max-width: 900px
+        }
+
+        h1 em {
+            font-style: normal;
+            color: var(--signal)
+        }
+
+        .hero p {
+            max-width: 680px;
+            margin: 22px 0 0;
+            color: var(--parchment);
+            font-size: 1rem;
+            line-height: 1.75
+        }
+
+        .hero code {
+            font-family: var(--mono);
+            color: var(--mint);
+            background: rgba(0, 217, 146, .08);
+            padding: 2px 5px;
+            border-radius: var(--radius-sm)
+        }
+
+        .stats {
+            display: flex;
+            gap: 12px;
+            margin-top: 34px;
+            flex-wrap: wrap
+        }
+
+        .stat {
+            min-width: 132px;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            background: linear-gradient(180deg, rgba(16, 16, 16, .86), rgba(16, 16, 16, .62));
+            border: 1px solid var(--line);
+            box-shadow: var(--ambient)
+        }
+
+        .stat b {
+            font-family: var(--heading);
+            font-size: 1.9rem;
+            font-weight: 800;
+            display: block;
+            line-height: 1;
+            color: var(--snow)
+        }
+
+        .stat span {
+            font-family: var(--mono);
+            font-size: .56rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-top: 7px;
+            display: block
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 8px 0 22px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            background: rgba(16, 16, 16, .74);
+            box-shadow: var(--ambient)
+        }
+
+        .search {
+            position: relative;
+            flex: 1;
+            min-width: 220px
+        }
+
+        .search span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--signal);
+            font-family: var(--mono)
+        }
+
+        input,
+        select {
+            font-family: var(--mono);
+            font-size: .78rem;
+            color: var(--snow);
+            background: #0a0a0b;
+            border: 1px solid var(--line);
+            border-radius: var(--radius-sm);
+            outline: none
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 12px 12px 36px
+        }
+
+        input::placeholder {
+            color: var(--slate)
+        }
+
+        input:focus,
+        select:focus {
+            border-color: rgba(0, 217, 146, .62);
+            box-shadow: 0 0 0 3px rgba(0, 217, 146, .1)
+        }
+
+        select {
+            padding: 11px 12px;
+            cursor: pointer
+        }
+
+        select option {
+            background: var(--carbon)
+        }
+
+        .chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        .chip {
+            font-family: var(--mono);
+            font-size: .66rem;
+            letter-spacing: .04em;
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--line);
+            color: var(--parchment);
+            background: rgba(61, 58, 57, .18);
+            transition: .18s;
+            white-space: nowrap
+        }
+
+        .chip:hover {
+            color: var(--snow);
+            border-color: rgba(0, 217, 146, .38)
+        }
+
+        .chip.on {
+            background: var(--signal);
+            color: #04100b;
+            border-color: var(--signal);
+            font-weight: 700
+        }
+
+        .panel {
+            background: rgba(16, 16, 16, .82);
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            margin-bottom: 56px;
+            box-shadow: var(--dramatic), var(--ambient);
+            position: relative
+        }
+
+        .panel:before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-md);
+            pointer-events: none;
+            border-top: 1px solid rgba(242, 242, 242, .06)
+        }
+
+        .plaque {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin: 0 0 12px;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            background: #0a0a0b;
+            border: 1px solid rgba(184, 179, 176, .12)
+        }
+
+        .plaque h2 {
+            font-family: var(--mono);
+            font-size: .84rem;
+            font-weight: 700;
+            color: var(--snow);
+            letter-spacing: .03em
+        }
+
+        .plaque span {
+            font-family: var(--mono);
+            font-size: .6rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--slate)
+        }
+
+        .gallery {
+            border-radius: var(--radius-sm);
+            padding: clamp(12px, 2.2vw, 24px);
+            background: linear-gradient(180deg, rgba(5, 5, 7, .74), rgba(16, 16, 16, .5));
+            border: 1px solid rgba(184, 179, 176, .09)
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr))
+        }
+
+        .empty {
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 76px 20px;
+            color: var(--slate)
+        }
+
+        .empty b {
+            font-family: var(--heading);
+            font-size: 1.45rem;
+            color: var(--snow);
+            display: block;
+            margin-bottom: 10px
+        }
+
+        .empty p {
+            max-width: 620px;
+            margin: 0 auto 22px;
+            line-height: 1.7;
+            color: var(--parchment)
+        }
+
+        .empty .btn {
+            display: inline-flex
+        }
+
+        .card {
+            --accent: var(--signal);
+            background: linear-gradient(180deg, rgba(16, 16, 16, .96), rgba(16, 16, 16, .74));
+            border: 1px solid var(--line);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .28);
+            transition: .22s;
+            opacity: 0;
+            transform: translateY(14px);
+            animation: rise .45s cubic-bezier(.2, .8, .2, 1) forwards
+        }
+
+        @keyframes rise {
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: color-mix(in srgb, var(--accent) 56%, var(--line));
+            box-shadow: 0 20px 44px rgba(0, 0, 0, .52), 0 0 18px color-mix(in srgb, var(--accent) 16%, transparent)
+        }
+
+        .niche {
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+            background: radial-gradient(65% 60% at 50% 44%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 64%), linear-gradient(180deg, #101010 0%, #080809 68%, #050507 100%);
+            border-bottom: 1px solid rgba(184, 179, 176, .1)
+        }
+
+        .spot {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 300px;
+            background: radial-gradient(circle at 50% 42%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 58%);
+            filter: blur(8px);
+            opacity: .95
+        }
+
+        .pet {
+            position: absolute;
+            left: 50%;
+            top: 42px;
+            transform: translateX(-50%);
+            width: 220px;
+            height: 220px;
+            filter: drop-shadow(0 0 18px color-mix(in srgb, var(--accent) 70%, transparent)) drop-shadow(0 16px 20px rgba(0, 0, 0, .56));
+            animation: bob 4.4s ease-in-out infinite
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0)
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-7px)
+            }
+        }
+
+        .card:hover .pet {
+            animation-duration: 2s
+        }
+
+        .pet svg,
+        .pet img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+            image-rendering: pixelated
+        }
+
+        .shelf {
+            position: absolute;
+            left: 12%;
+            right: 12%;
+            bottom: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--accent) 58%, #fff), transparent);
+            opacity: .42;
+            box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 38%, transparent)
+        }
+
+        .badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            font-family: var(--mono);
+            font-size: .58rem;
+            letter-spacing: .13em;
+            text-transform: uppercase;
+            padding: 7px 10px;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            border: 1px solid rgba(0, 217, 146, .3);
+            color: var(--signal);
+            background: rgba(0, 217, 146, .09)
+        }
+
+        .idx {
+            position: absolute;
+            top: 24px;
+            right: 20px;
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--slate);
+            letter-spacing: .08em
+        }
+
+        .label {
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex: 1
+        }
+
+        .namerow {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px
+        }
+
+        .namerow h3 {
+            font-family: var(--heading);
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -.05em
+        }
+
+        .species {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--warning);
+            letter-spacing: .03em;
+            white-space: nowrap
+        }
+
+        .desc {
+            font-size: .9rem;
+            line-height: 1.55;
+            color: var(--parchment);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 48px 48px;
+            gap: 8px;
+            margin-top: auto
+        }
+
+        .open-btn,
+        .icon-btn {
+            height: 48px;
+            border-radius: var(--radius-sm);
+            font-family: var(--mono);
+            cursor: pointer;
+            transition: .18s
+        }
+
+        .open-btn {
+            color: #04100b;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            background: var(--signal);
+            border: 1px solid rgba(0, 217, 146, .86);
+            font-size: .72rem;
+            font-weight: 800
+        }
+
+        .open-btn:hover {
+            background: var(--mint)
+        }
+
+        .icon-btn {
+            display: grid;
+            place-items: center;
+            color: var(--slate);
+            background: #0a0a0b;
+            border: 1px solid var(--line);
+            line-height: 1
+        }
+
+        .icon-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor
+        }
+
+        .github:hover {
+            color: var(--snow);
+            border-color: rgba(242, 242, 242, .28)
+        }
+
+        .star {
+            font-size: 1.45rem;
+            font-weight: 400
+        }
+
+        .star:hover {
+            color: var(--warning);
+            border-color: rgba(255, 186, 0, .36)
+        }
+
+        .star.on {
+            color: #050507;
+            background: var(--warning);
+            border-color: var(--warning)
+        }
+
+        footer {
+            text-align: center;
+            padding: 0 0 60px;
+            color: var(--slate);
+            font-size: .72rem;
+            line-height: 2
+        }
+
+        footer a {
+            color: var(--signal);
+            text-decoration: none
+        }
+
+        footer a:hover {
+            text-decoration: underline
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(5, 5, 7, .78);
+            backdrop-filter: blur(8px)
+        }
+
+        .overlay.open {
+            display: flex;
+            animation: fade .2s ease
+        }
+
+        @keyframes fade {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .modal {
+            --accent: var(--signal);
+            width: min(620px, calc(100vw - 32px));
+            max-height: 90vh;
+            overflow: auto;
+            overflow-x: hidden;
+            border-radius: var(--radius-md);
+            background: linear-gradient(180deg, #101010, #080809);
+            border: 1px solid var(--line-strong);
+            box-shadow: var(--dramatic), 0 0 24px color-mix(in srgb, var(--accent) 14%, transparent);
+            animation: pop .22s cubic-bezier(.2, .9, .3, 1)
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(.96);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        .modal-top {
+            height: 300px;
+            position: relative;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            background: radial-gradient(70% 90% at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 65%), linear-gradient(180deg, #101010, #050507)
+        }
+
+        .bigpet {
+            width: 220px;
+            height: 220px;
+            animation: bob 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent) 76%, transparent)) drop-shadow(0 12px 18px rgba(0, 0, 0, .55))
+        }
+
+        .bigpet svg,
+        .bigpet img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            image-rendering: pixelated
+        }
+
+        .close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            background: #0a0a0b;
+            border: 1px solid var(--line);
+            color: var(--snow);
+            font-size: 1rem
+        }
+
+        .close:hover {
+            border-color: rgba(251, 86, 91, .42);
+            color: var(--danger)
+        }
+
+        .modal-body {
+            padding: 22px 24px 24px;
+            overflow-x: hidden
+        }
+
+        .hd {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 4px
+        }
+
+        .hd h2 {
+            font-family: var(--heading);
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -.04em
+        }
+
+        .sp {
+            font-family: var(--mono);
+            font-size: .68rem;
+            color: var(--accent)
+        }
+
+        .d {
+            font-size: .98rem;
+            line-height: 1.65;
+            color: var(--parchment);
+            margin: 14px 0 18px
+        }
+
+        .grid2 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 18px
+        }
+
+        .box {
+            background: #0a0a0b;
+            border: 1px solid rgba(184, 179, 176, .12);
+            border-radius: var(--radius-sm);
+            padding: 10px 8px;
+            text-align: center;
+            min-width: 0
+        }
+
+        .box b {
+            display: block;
+            font-family: var(--mono);
+            font-size: .9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--snow)
+        }
+
+        .box span {
+            font-family: var(--mono);
+            font-size: .5rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--slate);
+            display: block;
+            margin-top: 4px
+        }
+
+        .install {
+            display: grid;
+            gap: 10px;
+            background: #0a0a0b;
+            border: 1px solid rgba(184, 179, 176, .12);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-top: 4px;
+            max-width: 100%;
+            overflow: hidden
+        }
+
+        .install h3 {
+            font-family: var(--mono);
+            font-size: .76rem;
+            color: var(--signal);
+            letter-spacing: .12em;
+            text-transform: uppercase
+        }
+
+        .install-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) max-content;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+            max-width: 100%;
+            overflow: hidden
+        }
+
+        .install code {
+            display: block;
+            min-width: 0;
+            color: var(--parchment);
+            font-family: var(--mono);
+            font-size: .72rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .install button {
+            min-width: 92px;
+            max-width: 136px;
+            font-family: var(--mono);
+            font-size: .62rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            color: #04100b;
+            font-weight: 700;
+            background: var(--signal);
+            border: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .install button:hover {
+            background: var(--mint)
+        }
+
+        .foot {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 14px;
+            font-size: .68rem;
+            color: var(--slate);
+            flex-wrap: wrap
+        }
+
+        .foot a {
+            color: var(--signal);
+            text-decoration: none
+        }
+
+        .foot a:hover {
+            text-decoration: underline
+        }
+
+        .lic {
+            font-family: var(--mono);
+            padding: 4px 7px;
+            border: 1px solid rgba(184, 179, 176, .12);
+            border-radius: var(--radius-sm);
+            letter-spacing: .06em;
+            background: rgba(61, 58, 57, .14);
+            color: var(--parchment)
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%) translateY(20px);
+            z-index: 1100;
+            opacity: 0;
+            pointer-events: none;
+            transition: .25s;
+            background: #101010;
+            border: 1px solid rgba(0, 217, 146, .28);
+            color: var(--snow);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: .78rem;
+            box-shadow: var(--dramatic), 0 0 16px rgba(0, 217, 146, .12);
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0)
+        }
+
+        .toast .ck {
+            color: var(--signal)
+        }
+
+        @media(max-width:560px) {
+            .hero {
+                padding-top: 36px
+            }
+
+            .stats {
+                gap: 10px
+            }
+
+            .stat {
+                min-width: 46%;
+                padding: 12px 10px
+            }
+
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .niche {
+                height: 280px
+            }
+
+            .pet {
+                width: 200px;
+                height: 200px;
+                top: 38px
+            }
+
+            .grid2 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+
+            .hd h2 {
+                font-size: 1.7rem
+            }
+
+            .install-row {
+                grid-template-columns: 1fr
+            }
+
+            .install button {
+                width: 100%;
+                max-width: none
+            }
+        }
+    </style>
 </head>
+
 <body>
-<div class="wrap"><div class="topbar"><div class="brand"><div class="mark" id="logo"></div><div><b>Pet<span>Hub</span></b><small>Codex Pet Registry</small></div></div><div class="top-actions"><div class="pill"><span class="dot"></span>Open Source</div><div class="pill" id="sourcePill">Live catalog</div><button class="btn" id="contribBtn">⊹ Contribute a Pet</button></div></div><header class="hero"><div class="hero-inner"><div class="eyebrow">Repository-powered companion index</div><h1>The Codex Pet <em>Gallery</em></h1><p>Browse real Codex Pets from this repository. Each entry is read from <code>pets/&lt;pet-id&gt;/pet.json</code>. Pet cards can also link to the creator's GitHub via <code>githubUrl</code>.</p><div class="stats"><div class="stat"><b id="sPets">0</b><span>Pets</span></div><div class="stat"><b id="sCats">0</b><span>Categories</span></div><div class="stat"><b id="sCon">0</b><span>Contributors</span></div><div class="stat"><b id="sMan">0</b><span>Manifests</span></div></div></div></header><div class="toolbar"><div class="search"><span>⌕</span><input id="search" type="text" placeholder="> filter pets by name, category or tag…" autocomplete="off"></div><div class="chips" id="chips"></div><select id="sort"><option value="name">Sort: A → Z</option><option value="category">Sort: Category</option><option value="author">Sort: Contributor</option></select></div><section class="panel"><div class="plaque"><h2>⌖ Repository Gallery — /pets</h2><span id="plaqueCount">Scanning…</span></div><div class="gallery"><div class="grid" id="grid"></div></div></section><footer>PetHub is a free &amp; open-source pet registry · Pets are community-contributed<br><a href="#" id="footGit">github.com/JiChaoSong/PetHub</a> &nbsp;·&nbsp; <a href="#" id="footDocs">Read the contribution guide</a></footer></div>
-<div class="overlay" id="overlay"><div class="modal" id="modal"><div class="modal-top"><button class="close" id="closeBtn">✕</button><div class="bigpet" id="mPet"></div></div><div class="modal-body"><div class="hd"><h2 id="mName"></h2><span class="sp" id="mSp"></span><span class="badge" id="mBadge"></span></div><p class="d" id="mDesc"></p><div class="grid2"><div class="box"><b id="mId">—</b><span>Pet ID</span></div><div class="box"><b id="mCat">—</b><span>Category</span></div><div class="box"><b id="mVer">—</b><span>Version</span></div><div class="box"><b id="mSheet">—</b><span>Spritesheet</span></div></div><div class="install"><h3>Use this Pet</h3><div class="install-row"><code id="mFolder">pets/&lt;pet-id&gt;/</code><button id="mOpen">Open</button></div><div class="install-row"><code id="mManifest">pet.json</code><button id="mCopy">Copy URL</button></div></div><div class="foot"><span>Maintained by <b id="mAuthor" style="color:var(--snow)"></b> · <a href="#" id="mGithub" target="_blank" rel="noopener">GitHub</a></span><span class="lic" id="mLic">LICENSE</span></div></div></div></div><div class="toast" id="toast"><span class="ck">✓</span><span id="toastMsg"></span></div>
-<script>
-const OWNER="JiChaoSong",REPO="PetHub",BRANCH="main";const REPO_URL=`https://github.com/${OWNER}/${REPO}`,API_BASE=`https://api.github.com/repos/${OWNER}/${REPO}/contents`,RAW_BASE=`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`,CACHE_URL="./pets.json";let PETS=[],activeCat="All",query="",sortBy="name",sourceLabel="Repository";const starred=new Set(JSON.parse(localStorage.getItem("pethub:starred")||"[]"));const $=id=>document.getElementById(id),esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c])),slug=v=>String(v||"pet").toLowerCase().replace(/[^a-z0-9_-]+/g,"-").replace(/^-|-$/g,"");function color(id){const colors=["#00d992","#2fd6a1","#4cb3d4","#ffba00","#fb565b","#8b949e"];let n=0;for(const ch of String(id))n=(n+ch.charCodeAt(0))%colors.length;return colors[n]}function fmt(n){return Number(n||0).toLocaleString()}async function getJson(url){const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(`${r.status} ${url}`);return r.json()}function ghIcon(){return'<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 3.86c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>'}function normalize(raw,folderId){const id=raw.id||folderId||slug(raw.displayName||raw.name),basePath=(raw.basePath||`pets/${folderId||id}/`).replace(/^\/+/,""),displayName=raw.displayName||raw.name||id,spritesheetPath=raw.spritesheetPath||"spritesheet.webp",folderUrl=raw.folderUrl||`${REPO_URL}/tree/${BRANCH}/${basePath.replace(/\/$/,"")}`;return{...raw,id,displayName,name:raw.name||displayName,description:raw.description||raw.desc||"A community-contributed Codex Pet.",species:raw.species||raw.type||"codex.pet",category:raw.category||raw.cat||raw.family||"Community",tags:Array.isArray(raw.tags)?raw.tags:[],version:raw.version||raw.ver||"—",author:raw.author||raw.maintainer||raw.creator||"Community",license:raw.license||"Unspecified",accent:raw.accent||raw.color||color(id),spritesheetPath,previewPath:raw.previewPath||raw.thumbnailPath||raw.iconPath||"index.png",basePath,folderUrl,githubUrl:raw.githubUrl||raw.github||raw.github_url||raw.repository||raw.homepage||REPO_URL,manifestUrl:raw.manifestUrl||`${RAW_BASE}/${basePath}pet.json`}}function asset(p,path){if(!path)return"";if(/^https?:\/\//i.test(path)||path.startsWith("data:"))return path;if(path.startsWith("./")||path.startsWith("/"))return path;return`${RAW_BASE}/${p.basePath}${path}`}function visual(p){const img=p.previewPath||"index.png",fallback=p.spritesheetPath&&p.spritesheetPath!==img?asset(p,p.spritesheetPath):"";return`<img src="${esc(asset(p,img))}" alt="${esc(p.displayName)} preview" loading="lazy" data-fallback="${esc(fallback)}" data-accent="${esc(p.accent)}" onerror="petImageError(this)">`}function petImageError(img){const fallback=img.dataset.fallback;if(fallback&&img.src!==fallback){img.dataset.fallback="";img.src=fallback;return}img.outerHTML=fallbackIcon(img.dataset.accent)}function fallbackIcon(accent){return`<svg viewBox="0 0 12 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="6" height="6" rx="1" fill="${accent||"#00d992"}"/><rect x="4" y="5" width="1" height="1" fill="#f2f2f2"/><rect x="7" y="5" width="1" height="1" fill="#f2f2f2"/><rect x="5" y="8" width="2" height="1" fill="#f2f2f2" opacity=".7"/></svg>`}async function loadFromRepo(){try{const dirs=await getJson(`${API_BASE}/pets?ref=${BRANCH}`);if(!Array.isArray(dirs))return[];const petDirs=dirs.filter(x=>x.type==="dir");const pets=await Promise.all(petDirs.map(async dir=>{try{return normalize(await getJson(`${RAW_BASE}/pets/${encodeURIComponent(dir.name)}/pet.json`),dir.name)}catch(e){console.warn("Invalid pet folder",dir.name,e);return null}}));sourceLabel="Live /pets scan";return pets.filter(Boolean)}catch(e){console.warn("Cannot scan /pets",e);return[]}}async function loadFromCache(){try{const d=await getJson(CACHE_URL),list=Array.isArray(d)?d:d.pets;if(!Array.isArray(list)||!list.length)return[];sourceLabel="Cached catalog";return list.map(x=>normalize(x,x.id)).filter(Boolean)}catch(e){return[]}}async function loadPets(){const live=await loadFromRepo();if(live.length)return live;const cached=await loadFromCache();if(cached.length)return cached;sourceLabel="No pets yet";return[]}function animate(el,target){const dur=800,t0=performance.now();function step(t){const k=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-k,3);el.textContent=fmt(Math.round(target*e));if(k<1)requestAnimationFrame(step)}requestAnimationFrame(step)}async function boot(){PETS=await loadPets();if(PETS[0])$("logo").innerHTML=visual(PETS[0]);else $("logo").innerHTML=fallbackIcon("#00d992");const cats=["All",...new Set(PETS.map(p=>p.category))];$("chips").innerHTML="";cats.forEach(c=>{const b=document.createElement("button");b.className="chip"+(c==="All"?" on":"");b.textContent=c;b.onclick=()=>{activeCat=c;[...$("chips").children].forEach(x=>x.classList.remove("on"));b.classList.add("on");draw()};$("chips").appendChild(b)});animate($("sPets"),PETS.length);animate($("sCats"),new Set(PETS.map(p=>p.category)).size);animate($("sCon"),new Set(PETS.map(p=>p.author)).size);animate($("sMan"),PETS.length);$("sourcePill").textContent=sourceLabel;$("search").oninput=e=>{query=e.target.value;draw()};$("sort").onchange=e=>{sortBy=e.target.value;draw()};$("contribBtn").onclick=()=>window.open(REPO_URL+"#how-to-add-a-new-pet","_blank","noopener");$("footGit").href=REPO_URL;$("footDocs").href=REPO_URL+"#how-to-add-a-new-pet";draw()}function draw(){let list=PETS.filter(p=>{const q=query.trim().toLowerCase();return(activeCat==="All"||p.category===activeCat)&&(!q||p.displayName.toLowerCase().includes(q)||p.id.toLowerCase().includes(q)||p.category.toLowerCase().includes(q)||p.author.toLowerCase().includes(q)||p.tags.some(t=>String(t).toLowerCase().includes(q)))});list.sort((a,b)=>sortBy==="category"?a.category.localeCompare(b.category)||a.displayName.localeCompare(b.displayName):sortBy==="author"?a.author.localeCompare(b.author)||a.displayName.localeCompare(b.displayName):a.displayName.localeCompare(b.displayName));$("plaqueCount").textContent=`${list.length} of ${PETS.length} real manifests on display`;if(!PETS.length){$("grid").innerHTML=`<div class="empty"><b>No real pets found yet</b><p>Add folders like <code>pets/neonfox/pet.json</code> and <code>pets/neonfox/index.png</code>. This page reads repository data directly.</p><a class="btn" href="${REPO_URL}#how-to-add-a-new-pet" target="_blank" rel="noopener">Read contribution guide</a></div>`;return}if(!list.length){$("grid").innerHTML='<div class="empty"><b>No matching pets</b><p>Try a different search or category.</p></div>';return}$("grid").innerHTML="";list.forEach((p,i)=>{const is=starred.has(p.id),v=visual(p),card=document.createElement("article");card.className="card";card.style.setProperty("--accent",p.accent);card.style.animationDelay=i*45+"ms";card.innerHTML=`<div class="niche"><div class="spot"></div><span class="badge">${esc(p.category)}</span><span class="idx">№${String(PETS.indexOf(p)+1).padStart(2,"0")}</span><div class="pet">${v}</div><div class="shelf"></div></div><div class="label"><div class="namerow"><h3>${esc(p.displayName)}</h3><span class="species">${esc(p.species)}</span></div><p class="desc">${esc(p.description)}</p><div class="actions"><button class="open-btn" data-act="open">Open</button><button class="icon-btn github" data-act="github" title="Open GitHub" aria-label="Open GitHub">${ghIcon()}</button><button class="icon-btn star${is?" on":""}" data-act="star" title="Bookmark" aria-label="Bookmark">${is?"★":"☆"}</button></div></div>`;card.onclick=e=>{const act=e.target.closest("[data-act]");if(act){e.stopPropagation();if(act.dataset.act==="open")window.open(p.folderUrl,"_blank","noopener");else if(act.dataset.act==="github")window.open(p.githubUrl||REPO_URL,"_blank","noopener");else toggle(p);return}modal(p)};$("grid").appendChild(card)})}function toggle(p){starred.has(p.id)?starred.delete(p.id):starred.add(p.id);localStorage.setItem("pethub:starred",JSON.stringify([...starred]));toast(starred.has(p.id)?`Bookmarked ${p.displayName} ★`:`Removed bookmark · ${p.displayName}`);draw()}function modal(p){$("modal").style.setProperty("--accent",p.accent);$("mPet").innerHTML=visual(p);$("mName").textContent=p.displayName;$("mSp").textContent=p.species;$("mBadge").textContent=p.category;$("mDesc").textContent=p.description;$("mId").textContent=p.id;$("mCat").textContent=p.category;$("mVer").textContent=p.version;$("mSheet").textContent=p.spritesheetPath;$("mFolder").textContent=p.basePath;$("mManifest").textContent=p.manifestUrl;$("mAuthor").textContent=p.author;$("mGithub").href=p.githubUrl||REPO_URL;$("mLic").textContent=String(p.license||"Unspecified").toUpperCase();$("mOpen").onclick=()=>window.open(p.folderUrl,"_blank","noopener");$("mCopy").onclick=()=>{copy(p.manifestUrl);toast(`Manifest URL copied · ${p.displayName}`)};$("overlay").classList.add("open")}function closeModal(){$("overlay").classList.remove("open")}$("closeBtn").onclick=closeModal;$("overlay").onclick=e=>{if(e.target===$("overlay"))closeModal()};document.onkeydown=e=>{if(e.key==="Escape")closeModal()};function copy(txt){try{navigator.clipboard&&navigator.clipboard.writeText(txt)}catch(e){}}let timer;function toast(msg){$("toastMsg").textContent=msg;$("toast").classList.add("show");clearTimeout(timer);timer=setTimeout(()=>$("toast").classList.remove("show"),2400)}boot();
-</script>
+    <div class="wrap">
+        <div class="topbar">
+            <div class="brand">
+                <div class="mark" id="logo"></div>
+                <div><b>Pet<span>Hub</span></b><small>Codex Pet Registry</small></div>
+            </div>
+            <div class="top-actions">
+                <div class="pill"><span class="dot"></span>Open Source</div>
+                <div class="pill" id="sourcePill">Live catalog</div><button class="btn" id="contribBtn">⊹ Contribute a
+                    Pet</button>
+            </div>
+        </div>
+        <header class="hero">
+            <div class="hero-inner">
+                <div class="eyebrow">Repository-powered companion index</div>
+                <h1>The Codex Pet <em>Gallery</em></h1>
+                <p>Browse real Codex Pets from this repository. </p>
+                <div class="stats">
+                    <div class="stat"><b id="sPets">0</b><span>Pets</span></div>
+                    <div class="stat"><b id="sCats">0</b><span>Categories</span></div>
+                    <div class="stat"><b id="sCon">0</b><span>Contributors</span></div>
+                    <div class="stat"><b id="sMan">0</b><span>Manifests</span></div>
+                </div>
+            </div>
+        </header>
+        <div class="toolbar">
+            <div class="search"><span>⌕</span><input id="search" type="text"
+                    placeholder="> filter pets by name, category or tag…" autocomplete="off"></div>
+            <div class="chips" id="chips"></div><select id="sort">
+                <option value="name">Sort: A → Z</option>
+                <option value="category">Sort: Category</option>
+                <option value="author">Sort: Contributor</option>
+            </select>
+        </div>
+        <section class="panel">
+            <div class="plaque">
+                <h2>⌖ Repository Gallery — /pets</h2><span id="plaqueCount">Scanning…</span>
+            </div>
+            <div class="gallery">
+                <div class="grid" id="grid"></div>
+            </div>
+        </section>
+        <footer>PetHub is a free &amp; open-source pet registry · Pets are community-contributed<br><a href="#"
+                id="footGit">github.com/talcon/PetHub</a> &nbsp;·&nbsp; <a href="#" id="footDocs">Read the
+                contribution guide</a></footer>
+    </div>
+    <div class="overlay" id="overlay">
+        <div class="modal" id="modal">
+            <div class="modal-top"><button class="close" id="closeBtn">✕</button>
+                <div class="bigpet" id="mPet"></div>
+            </div>
+            <div class="modal-body">
+                <div class="hd">
+                    <h2 id="mName"></h2><span class="sp" id="mSp"></span><span class="badge" id="mBadge"></span>
+                </div>
+                <p class="d" id="mDesc"></p>
+                <div class="grid2">
+                    <div class="box"><b id="mId">—</b><span>Pet ID</span></div>
+                    <div class="box"><b id="mCat">—</b><span>Category</span></div>
+                    <div class="box"><b id="mVer">—</b><span>Version</span></div>
+                    <div class="box"><b id="mSheet">—</b><span>Spritesheet</span></div>
+                </div>
+                <div class="install">
+                    <h3>Use this Pet</h3>
+                    <div class="install-row"><code id="mFolder">pets/&lt;pet-id&gt;/</code><button
+                            id="mOpen">Open</button></div>
+                    <div class="install-row"><code id="mManifest">pet.json</code><button id="mCopy">Copy URL</button>
+                    </div>
+                </div>
+                <div class="foot"><span>Maintained by <b id="mAuthor" style="color:var(--snow)"></b> · <a href="#"
+                            id="mGithub" target="_blank" rel="noopener">GitHub</a></span><span class="lic"
+                        id="mLic">LICENSE</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="toast" id="toast"><span class="ck">✓</span><span id="toastMsg"></span></div>
+    <script>
+        const OWNER = "talcon", REPO = "PetHub", BRANCH = "main"; const REPO_URL = `https://github.com/${OWNER}/${REPO}`, API_BASE = `https://api.github.com/repos/${OWNER}/${REPO}/contents`, RAW_BASE = `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}`, CACHE_URL = "./pets.json"; let PETS = [], activeCat = "All", query = "", sortBy = "name", sourceLabel = "Repository"; const starred = new Set(JSON.parse(localStorage.getItem("pethub:starred") || "[]")); const $ = id => document.getElementById(id), esc = v => String(v ?? "").replace(/[&<>'"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c])), slug = v => String(v || "pet").toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-|-$/g, ""); function color(id) { const colors = ["#00d992", "#2fd6a1", "#4cb3d4", "#ffba00", "#fb565b", "#8b949e"]; let n = 0; for (const ch of String(id)) n = (n + ch.charCodeAt(0)) % colors.length; return colors[n] } function fmt(n) { return Number(n || 0).toLocaleString() } async function getJson(url) { const r = await fetch(url, { cache: "no-store" }); if (!r.ok) throw Error(`${r.status} ${url}`); return r.json() } function ghIcon() { return '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.65 7.65 0 0 1 8 3.86c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"></path></svg>' } function normalize(raw, folderId) { const id = raw.id || folderId || slug(raw.displayName || raw.name), basePath = (raw.basePath || `pets/${folderId || id}/`).replace(/^\/+/, ""), displayName = raw.displayName || raw.name || id, spritesheetPath = raw.spritesheetPath || "spritesheet.webp", folderUrl = raw.folderUrl || `${REPO_URL}/tree/${BRANCH}/${basePath.replace(/\/$/, "")}`; return { ...raw, id, displayName, name: raw.name || displayName, description: raw.description || raw.desc || "A community-contributed Codex Pet.", species: raw.species || raw.type || "codex.pet", category: raw.category || raw.cat || raw.family || "Community", tags: Array.isArray(raw.tags) ? raw.tags : [], version: raw.version || raw.ver || "—", author: raw.author || raw.maintainer || raw.creator || "Community", license: raw.license || "Unspecified", accent: raw.accent || raw.color || color(id), spritesheetPath, previewPath: raw.previewPath || raw.thumbnailPath || raw.iconPath || "index.png", basePath, folderUrl, githubUrl: raw.githubUrl || raw.github || raw.github_url || raw.repository || raw.homepage || REPO_URL, manifestUrl: raw.manifestUrl || `${RAW_BASE}/${basePath}pet.json` } } function asset(p, path) { if (!path) return ""; if (/^https?:\/\//i.test(path) || path.startsWith("data:")) return path; if (path.startsWith("./") || path.startsWith("/")) return path; return `${RAW_BASE}/${p.basePath}${path}` } function visual(p) { const img = p.previewPath || "index.png", fallback = p.spritesheetPath && p.spritesheetPath !== img ? asset(p, p.spritesheetPath) : ""; return `<img src="${esc(asset(p, img))}" alt="${esc(p.displayName)} preview" loading="lazy" data-fallback="${esc(fallback)}" data-accent="${esc(p.accent)}" onerror="petImageError(this)">` } function petImageError(img) { const fallback = img.dataset.fallback; if (fallback && img.src !== fallback) { img.dataset.fallback = ""; img.src = fallback; return } img.outerHTML = fallbackIcon(img.dataset.accent) } function fallbackIcon(accent) { return `<svg viewBox="0 0 12 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="6" height="6" rx="1" fill="${accent || "#00d992"}"/><rect x="4" y="5" width="1" height="1" fill="#f2f2f2"/><rect x="7" y="5" width="1" height="1" fill="#f2f2f2"/><rect x="5" y="8" width="2" height="1" fill="#f2f2f2" opacity=".7"/></svg>` } async function loadFromRepo() { try { const dirs = await getJson(`${API_BASE}/pets?ref=${BRANCH}`); if (!Array.isArray(dirs)) return []; const petDirs = dirs.filter(x => x.type === "dir"); const pets = await Promise.all(petDirs.map(async dir => { try { return normalize(await getJson(`${RAW_BASE}/pets/${encodeURIComponent(dir.name)}/pet.json`), dir.name) } catch (e) { console.warn("Invalid pet folder", dir.name, e); return null } })); sourceLabel = "Live /pets scan"; return pets.filter(Boolean) } catch (e) { console.warn("Cannot scan /pets", e); return [] } } async function loadFromCache() { try { const d = await getJson(CACHE_URL), list = Array.isArray(d) ? d : d.pets; if (!Array.isArray(list) || !list.length) return []; sourceLabel = "Cached catalog"; return list.map(x => normalize(x, x.id)).filter(Boolean) } catch (e) { return [] } } async function loadPets() { const live = await loadFromRepo(); if (live.length) return live; const cached = await loadFromCache(); if (cached.length) return cached; sourceLabel = "No pets yet"; return [] } function animate(el, target) { const dur = 800, t0 = performance.now(); function step(t) { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = fmt(Math.round(target * e)); if (k < 1) requestAnimationFrame(step) } requestAnimationFrame(step) } async function boot() { PETS = await loadPets(); if (PETS[0]) $("logo").innerHTML = visual(PETS[0]); else $("logo").innerHTML = fallbackIcon("#00d992"); const cats = ["All", ...new Set(PETS.map(p => p.category))]; $("chips").innerHTML = ""; cats.forEach(c => { const b = document.createElement("button"); b.className = "chip" + (c === "All" ? " on" : ""); b.textContent = c; b.onclick = () => { activeCat = c;[...$("chips").children].forEach(x => x.classList.remove("on")); b.classList.add("on"); draw() }; $("chips").appendChild(b) }); animate($("sPets"), PETS.length); animate($("sCats"), new Set(PETS.map(p => p.category)).size); animate($("sCon"), new Set(PETS.map(p => p.author)).size); animate($("sMan"), PETS.length); $("sourcePill").textContent = sourceLabel; $("search").oninput = e => { query = e.target.value; draw() }; $("sort").onchange = e => { sortBy = e.target.value; draw() }; $("contribBtn").onclick = () => window.open(REPO_URL + "#how-to-add-a-new-pet", "_blank", "noopener"); $("footGit").href = REPO_URL; $("footDocs").href = REPO_URL + "#how-to-add-a-new-pet"; draw() } function draw() { let list = PETS.filter(p => { const q = query.trim().toLowerCase(); return (activeCat === "All" || p.category === activeCat) && (!q || p.displayName.toLowerCase().includes(q) || p.id.toLowerCase().includes(q) || p.category.toLowerCase().includes(q) || p.author.toLowerCase().includes(q) || p.tags.some(t => String(t).toLowerCase().includes(q))) }); list.sort((a, b) => sortBy === "category" ? a.category.localeCompare(b.category) || a.displayName.localeCompare(b.displayName) : sortBy === "author" ? a.author.localeCompare(b.author) || a.displayName.localeCompare(b.displayName) : a.displayName.localeCompare(b.displayName)); $("plaqueCount").textContent = `${list.length} of ${PETS.length} real manifests on display`; if (!PETS.length) { $("grid").innerHTML = `<div class="empty"><b>No real pets found yet</b><p>Add folders like <code>pets/neonfox/pet.json</code> and <code>pets/neonfox/index.png</code>. This page reads repository data directly.</p><a class="btn" href="${REPO_URL}#how-to-add-a-new-pet" target="_blank" rel="noopener">Read contribution guide</a></div>`; return } if (!list.length) { $("grid").innerHTML = '<div class="empty"><b>No matching pets</b><p>Try a different search or category.</p></div>'; return } $("grid").innerHTML = ""; list.forEach((p, i) => { const is = starred.has(p.id), v = visual(p), card = document.createElement("article"); card.className = "card"; card.style.setProperty("--accent", p.accent); card.style.animationDelay = i * 45 + "ms"; card.innerHTML = `<div class="niche"><div class="spot"></div><span class="badge">${esc(p.category)}</span><span class="idx">№${String(PETS.indexOf(p) + 1).padStart(2, "0")}</span><div class="pet">${v}</div><div class="shelf"></div></div><div class="label"><div class="namerow"><h3>${esc(p.displayName)}</h3><span class="species">${esc(p.species)}</span></div><p class="desc">${esc(p.description)}</p><div class="actions"><button class="open-btn" data-act="open">Open</button><button class="icon-btn github" data-act="github" title="Open GitHub" aria-label="Open GitHub">${ghIcon()}</button><button class="icon-btn star${is ? " on" : ""}" data-act="star" title="Bookmark" aria-label="Bookmark">${is ? "★" : "☆"}</button></div></div>`; card.onclick = e => { const act = e.target.closest("[data-act]"); if (act) { e.stopPropagation(); if (act.dataset.act === "open") window.open(p.folderUrl, "_blank", "noopener"); else if (act.dataset.act === "github") window.open(p.githubUrl || REPO_URL, "_blank", "noopener"); else toggle(p); return } modal(p) }; $("grid").appendChild(card) }) } function toggle(p) { starred.has(p.id) ? starred.delete(p.id) : starred.add(p.id); localStorage.setItem("pethub:starred", JSON.stringify([...starred])); toast(starred.has(p.id) ? `Bookmarked ${p.displayName} ★` : `Removed bookmark · ${p.displayName}`); draw() } function modal(p) { $("modal").style.setProperty("--accent", p.accent); $("mPet").innerHTML = visual(p); $("mName").textContent = p.displayName; $("mSp").textContent = p.species; $("mBadge").textContent = p.category; $("mDesc").textContent = p.description; $("mId").textContent = p.id; $("mCat").textContent = p.category; $("mVer").textContent = p.version; $("mSheet").textContent = p.spritesheetPath; $("mFolder").textContent = p.basePath; $("mManifest").textContent = p.manifestUrl; $("mAuthor").textContent = p.author; $("mGithub").href = p.githubUrl || REPO_URL; $("mLic").textContent = String(p.license || "Unspecified").toUpperCase(); $("mOpen").onclick = () => window.open(p.folderUrl, "_blank", "noopener"); $("mCopy").onclick = () => { copy(p.manifestUrl); toast(`Manifest URL copied · ${p.displayName}`) }; $("overlay").classList.add("open") } function closeModal() { $("overlay").classList.remove("open") } $("closeBtn").onclick = closeModal; $("overlay").onclick = e => { if (e.target === $("overlay")) closeModal() }; document.onkeydown = e => { if (e.key === "Escape") closeModal() }; function copy(txt) { try { navigator.clipboard && navigator.clipboard.writeText(txt) } catch (e) { } } let timer; function toast(msg) { $("toastMsg").textContent = msg; $("toast").classList.add("show"); clearTimeout(timer); timer = setTimeout(() => $("toast").classList.remove("show"), 2400) } boot();
+    </script>
 </body>
+
 </html>

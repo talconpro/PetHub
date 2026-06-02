@@ -3,7 +3,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 
-const DEFAULT_OWNER = 'talcon';
+const DEFAULT_OWNER = 'JiChaoSong';
 const DEFAULT_REPO = 'PetHub';
 const DEFAULT_BRANCH = 'main';
 const DEFAULT_INSTALL_DIR = '~/.codex/pets';
