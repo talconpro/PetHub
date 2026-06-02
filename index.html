@@ -1119,9 +1119,10 @@
                 </div>
                 <div class="install">
                     <h3>Use this Pet</h3>
-                    <div class="install-row"><code id="mFolder">pets/&lt;pet-id&gt;/</code><button
-                            id="mOpen">Open</button></div>
-                    <div class="install-row"><code id="mManifest">pet.json</code><button id="mCopy">Copy URL</button>
+                    <div class="install-row"><code id="mInstall">npx @talcon/pethub &lt;pet-id&gt;</code><button
+                            id="mCopyInstall">Copy</button></div>
+                    <div class="install-row"><code id="mFolder">~/.codex/pets/&lt;pet-id&gt;/</code><button
+                            id="mOpen">Open</button>
                     </div>
                 </div>
                 <div class="foot"><span>Maintained by <b id="mAuthor" style="color:var(--snow)"></b> · <a href="#"
@@ -1449,15 +1450,16 @@
             $("mCat").textContent = p.category;
             $("mVer").textContent = p.version;
             $("mSheet").textContent = p.spritesheetPath;
-            $("mFolder").textContent = p.basePath;
-            $("mManifest").textContent = p.manifestUrl;
+            const installCommand = `npx @talcon/pethub ${p.id}`;
+            $("mInstall").textContent = installCommand;
+            $("mFolder").textContent = `~/.codex/pets/${p.id}/`;
             $("mAuthor").textContent = p.author;
             $("mGithub").href = p.githubUrl || REPO_URL;
             $("mLic").textContent = String(p.license || "Unspecified").toUpperCase();
             $("mOpen").onclick = () => window.open(p.folderUrl, "_blank", "noopener");
-            $("mCopy").onclick = () => {
-                copy(p.manifestUrl);
-                toast(`Manifest URL copied · ${p.displayName}`);
+            $("mCopyInstall").onclick = () => {
+                copy(installCommand);
+                toast(`Install command copied · ${p.displayName}`);
             };
             $("overlay").classList.add("open");
         }
