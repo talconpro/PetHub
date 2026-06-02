@@ -1,0 +1,40 @@
+name: Generate pets catalog
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pets/**/pet.json'
+      - 'pets/**/index.png'
+      - 'pets/**/spritesheet.webp'
+      - 'scripts/generate-pets-catalog.mjs'
+      - '.github/workflows/generate-pets-catalog.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate pets.json
+        run: node scripts/generate-pets-catalog.mjs
+
+      - name: Commit generated catalog
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: generate pets catalog'
+          file_pattern: pets.json
