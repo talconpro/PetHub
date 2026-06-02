@@ -1,6 +1,6 @@
 # PetHub
 
-**PetHub** is an open-source pet repository for collecting, sharing, and downloading Codex Pets.
+**PetHub** is an open-source pet repository for collecting, sharing, and installing Codex Pets.
 
 Each Pet is stored in its own folder and should include three core files:
 
@@ -10,7 +10,47 @@ spritesheet.webp
 pet.json
 ```
 
-Users can download their favorite Pets directly, or integrate PetHub into Codex Pet clients, desktop pet tools, or other creative projects.
+Users can install their favorite Pets with the PetHub CLI, download them directly, or integrate PetHub into Codex Pet clients, desktop pet tools, or other creative projects.
+
+---
+
+## Quick Install
+
+Install a Pet into your user-level Codex pets directory:
+
+```bash
+npx pethub neonfox
+```
+
+Default output:
+
+```text
+~/.codex/
+└─ pets/
+   └─ neonfox/
+      ├─ pet.json
+      ├─ index.png
+      └─ spritesheet.webp
+```
+
+More examples:
+
+```bash
+# Install another Pet
+npx pethub cozycodercat
+
+# Overwrite existing files
+npx pethub neonfox --force
+
+# Install to a custom root directory
+npx pethub neonfox --dir ./my-pets
+
+# List available Pets
+npx pethub list
+
+# Show Pet manifest info
+npx pethub info neonfox
+```
 
 ---
 
@@ -22,7 +62,7 @@ Its goals are to:
 
 - Collect Codex Pets in different visual styles
 - Provide a simple and consistent file structure for every Pet
-- Let users download and use Pets quickly
+- Let users install and use Pets quickly
 - Make it easy for creators to submit their own Pets
 - Provide a foundation for future Pet marketplaces, Pet managers, or plugin ecosystems
 
@@ -36,6 +76,7 @@ The recommended minimal structure is:
 pethub/
 ├─ README.md
 ├─ index.html
+├─ pets.json
 └─ pets/
    └─ neonfox/
       ├─ index.png
@@ -44,6 +85,8 @@ pethub/
 ```
 
 Each Pet lives in its own folder under `pets/`.
+
+`pets.json` is generated automatically from `pets/<pet-id>/pet.json` by GitHub Actions. Do not edit it manually.
 
 ---
 
@@ -215,6 +258,8 @@ pets/
    └─ pet.json
 ```
 
+After the PR is merged, GitHub Actions automatically regenerates `pets.json`.
+
 ---
 
 ## Contribution Requirements
@@ -233,25 +278,37 @@ Before submitting a Pet, please make sure:
 
 ## Usage
 
-You can directly download any Pet folder:
+The easiest way to install a Pet is:
+
+```bash
+npx pethub <pet-id>
+```
+
+Example:
+
+```bash
+npx pethub neonfox
+```
+
+By default, the CLI installs the Pet into your user-level Codex pets directory:
+
+```text
+~/.codex/pets/<pet-id>/
+```
+
+A client can then read:
+
+```text
+~/.codex/pets/<pet-id>/pet.json
+```
+
+and load the corresponding `spritesheet.webp` from the same folder.
+
+You can still download any Pet folder directly from the repository if needed:
 
 ```text
 pets/<pet-id>/
 ```
-
-Then load its manifest in your own project:
-
-```json
-{
-  "id": "neonfox",
-  "displayName": "NeonFox",
-  "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
-  "spritesheetPath": "spritesheet.webp",
-  "previewPath": "index.png"
-}
-```
-
-A client only needs to read `spritesheetPath` and load the corresponding `spritesheet.webp`.
 
 ---
 
