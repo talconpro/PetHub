@@ -1,0 +1,33 @@
+{
+  "name": "@talcon/pethub",
+  "version": "0.1.0",
+  "description": "CLI for installing Codex Pets from PetHub.",
+  "type": "module",
+  "bin": {
+    "pethub": "bin/pethub.mjs"
+  },
+  "files": [
+    "bin",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "generate:catalog": "node scripts/generate-pets-catalog.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiChaoSong/PetHub.git"
+  },
+  "keywords": [
+    "pethub",
+    "codex-pet",
+    "desktop-pet",
+    "pixel-pet",
+    "cli"
+  ],
+  "author": "PetHub contributors",
+  "license": "MIT"
+}

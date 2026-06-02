@@ -22,7 +22,7 @@ body:
     id: pet_id
     attributes:
       label: Pet ID
-      description: Use lowercase kebab-case. Must match the folder name.
+      description: Use lowercase letters, numbers, hyphens, or underscores. Must match the folder name.
       placeholder: neonfox
     validations:
       required: true
@@ -76,6 +76,15 @@ body:
       required: true
 
   - type: input
+    id: github_url
+    attributes:
+      label: GitHub URL
+      description: Optional creator/project GitHub link shown on the Pet card.
+      placeholder: https://github.com/your-name
+    validations:
+      required: false
+
+  - type: input
     id: license
     attributes:
       label: Asset License
@@ -100,6 +109,7 @@ body:
           "species": "codex.pet",
           "tags": ["fox", "cyberpunk", "hacker"],
           "author": "@your-github-name",
+          "githubUrl": "https://github.com/your-name",
           "version": "1.0.0",
           "license": "MIT",
           "accent": "#00d992"
