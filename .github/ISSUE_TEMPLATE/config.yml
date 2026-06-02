@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Pet Submission Guide
+    url: https://github.com/JiChaoSong/PetHub/blob/main/docs/PET_SUBMISSION_GUIDE.md
+    about: Read the PetHub Pet submission rules and file specification before opening an issue.
