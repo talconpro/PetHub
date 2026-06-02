@@ -1,5 +1,5 @@
 {
-  "name": "pethub",
+  "name": "@talcon/pethub",
   "version": "0.1.0",
   "description": "CLI for installing Codex Pets from PetHub.",
   "type": "module",

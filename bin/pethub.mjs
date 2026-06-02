@@ -12,14 +12,14 @@ function printHelp() {
   console.log(`PetHub CLI
 
 Usage:
-  npx pethub <pet_id> [options]
-  npx pethub list
-  npx pethub info <pet_id>
+  npx @talcon/pethub <pet_id> [options]
+  npx @talcon/pethub list
+  npx @talcon/pethub info <pet_id>
 
 Examples:
-  npx pethub neonfox
-  npx pethub cozycodercat
-  npx pethub neonfox --dir ~/.codex/pets
+  npx @talcon/pethub neonfox
+  npx @talcon/pethub cozycodercat
+  npx @talcon/pethub neonfox --dir ~/.codex/pets
 
 Options:
   --dir <path>       Install root directory. Default: ~/.codex/pets
@@ -190,7 +190,7 @@ async function listPets(options) {
 }
 
 async function showPetInfo(options, petId) {
-  if (!petId) throw new Error('Missing pet_id. Example: npx pethub info neonfox');
+  if (!petId) throw new Error('Missing pet_id. Example: npx @talcon/pethub info neonfox');
   const pet = await loadPetManifest(options, petId);
   console.log(JSON.stringify(pet, null, 2));
 }

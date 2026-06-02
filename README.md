@@ -7,7 +7,7 @@ PetHub is an open-source desktop pet sharing platform for collecting, publishing
 Every Pet can be previewed in the gallery, installed with one command, and linked back to its creator or project on GitHub.
 
 ```bash
-npx pethub neonfox
+npx @talcon/pethub neonfox
 ```
 
 By default, the PetHub CLI installs pets into:
@@ -35,7 +35,7 @@ PetHub is not just a file repository. It is a community index for desktop pet as
 Install a Pet into your user-level Codex pets directory:
 
 ```bash
-npx pethub neonfox
+npx @talcon/pethub neonfox
 ```
 
 Default output:
@@ -53,19 +53,19 @@ More examples:
 
 ```bash
 # Install another Pet
-npx pethub cozycodercat
+npx @talcon/pethub cozycodercat
 
 # Overwrite existing files
-npx pethub neonfox --force
+npx @talcon/pethub neonfox --force
 
 # Install to a custom root directory
-npx pethub neonfox --dir ./my-pets
+npx @talcon/pethub neonfox --dir ./my-pets
 
 # List available Pets
-npx pethub list
+npx @talcon/pethub list
 
 # Show Pet manifest info
-npx pethub info neonfox
+npx @talcon/pethub info neonfox
 ```
 
 ---
@@ -297,13 +297,13 @@ Before submitting a Pet, please make sure:
 The easiest way to install a Pet is:
 
 ```bash
-npx pethub <pet-id>
+npx @talcon/pethub <pet-id>
 ```
 
 Example:
 
 ```bash
-npx pethub neonfox
+npx @talcon/pethub neonfox
 ```
 
 By default, the CLI installs the Pet into your user-level Codex pets directory:
@@ -333,7 +333,7 @@ pets/<pet-id>/
 - Desktop PetHub Gallery
 - Pet categories and tags
 - Pet search
-- One-command install with `npx pethub <pet-id>`
+- One-command install with `npx @talcon/pethub <pet-id>`
 - Contributor and creator links
 - Issue-based pet submissions
 - Auto-generated `pets.json` catalog
