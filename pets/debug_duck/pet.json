@@ -1,0 +1,6 @@
+{
+  "id": "debug_duck",
+  "displayName": "DebugDuck",
+  "description": "A cute cyber pet that helps developers find bugs, debug code, and explore ideas with playful energy.",
+  "spritesheetPath": "spritesheet.webp"
+}
