@@ -1,19 +1,15 @@
 name: Pet Submission
 description: Submit a new Codex Pet to PetHub
 title: "[Pet Submission]: "
-labels:
-  - pet-submission
-  - needs-review
+labels: ["pet-submission", "needs-review"]
+
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for submitting a Pet to PetHub!
 
-        Please read the Pet Submission Guide before submitting:
-        `docs/PET_SUBMISSION_GUIDE.md`
-
-        A complete Pet should eventually include:
+        Required files:
 
         ```text
         pets/<pet-id>/
@@ -26,7 +22,7 @@ body:
     id: pet_id
     attributes:
       label: Pet ID
-      description: Use lowercase kebab-case. This must match the folder name under `pets/`.
+      description: Use lowercase kebab-case. Must match the folder name.
       placeholder: neonfox
     validations:
       required: true
@@ -35,7 +31,6 @@ body:
     id: display_name
     attributes:
       label: Display Name
-      description: Human-readable name shown in the gallery.
       placeholder: NeonFox
     validations:
       required: true
@@ -44,8 +39,7 @@ body:
     id: description
     attributes:
       label: Description
-      description: Short description of the Pet. Preferably under 160 characters.
-      placeholder: A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.
+      placeholder: A cyberpunk fox hacker pet with neon techwear.
     validations:
       required: true
 
@@ -53,7 +47,6 @@ body:
     id: category
     attributes:
       label: Category
-      description: Choose the closest category.
       options:
         - Beast
         - Robot
@@ -71,16 +64,13 @@ body:
     id: tags
     attributes:
       label: Tags
-      description: Comma-separated tags. Use 1–6 lowercase tags.
+      description: Comma-separated tags.
       placeholder: fox, cyberpunk, hacker
-    validations:
-      required: false
 
   - type: input
     id: author
     attributes:
       label: Author / Creator
-      description: GitHub handle or creator name.
       placeholder: "@your-github-name"
     validations:
       required: true
@@ -89,31 +79,21 @@ body:
     id: license
     attributes:
       label: Asset License
-      description: Example: MIT, CC-BY-4.0, CC0-1.0, Custom.
       placeholder: MIT
     validations:
       required: true
-
-  - type: input
-    id: accent
-    attributes:
-      label: Accent Color
-      description: Optional hex color used by the gallery card.
-      placeholder: "#00d992"
-    validations:
-      required: false
 
   - type: textarea
     id: manifest
     attributes:
       label: pet.json
-      description: Paste your proposed manifest JSON here.
+      description: Paste your proposed pet.json here.
       render: json
-      value: |
+      placeholder: |
         {
           "id": "neonfox",
           "displayName": "NeonFox",
-          "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
+          "description": "A cyberpunk fox hacker pet with neon techwear.",
           "spritesheetPath": "spritesheet.webp",
           "previewPath": "index.png",
           "category": "Beast",
@@ -131,24 +111,12 @@ body:
     id: assets
     attributes:
       label: Asset Uploads or Links
-      description: Upload `index.png` and `spritesheet.webp`, or provide links to the files.
+      description: Upload or link index.png and spritesheet.webp.
       placeholder: |
-        index.png: upload or link here
-        spritesheet.webp: upload or link here
+        index.png:
+        spritesheet.webp:
     validations:
       required: true
-
-  - type: textarea
-    id: animation_states
-    attributes:
-      label: Animation States
-      description: List the animation states included in your spritesheet, if known.
-      placeholder: |
-        idle: row 1, 8 frames
-        running: row 2, 8 frames
-        waiting: row 3, 8 frames
-    validations:
-      required: false
 
   - type: checkboxes
     id: checklist
@@ -161,20 +129,9 @@ body:
           required: true
         - label: This Pet does not contain offensive, discriminatory, adult, extremist, illegal, or hateful content.
           required: true
-        - label: I included or linked `index.png`.
+        - label: I included or linked index.png.
           required: true
-        - label: I included or linked `spritesheet.webp`.
+        - label: I included or linked spritesheet.webp.
           required: true
-        - label: The provided `pet.json` is valid JSON.
+        - label: The provided pet.json is valid JSON.
           required: true
-        - label: The `id` in `pet.json` matches the proposed folder name.
-          required: true
-
-  - type: textarea
-    id: notes
-    attributes:
-      label: Additional Notes
-      description: Anything else maintainers should know?
-      placeholder: Optional notes, credits, or implementation details.
-    validations:
-      required: false
