@@ -9,7 +9,16 @@
       "displayName": "NeonFox",
       "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
       "spritesheetPath": "spritesheet.webp",
+      "previewPath": "index.png",
       "basePath": "pets/neonfox/"
+    },
+    {
+      "id": "cozycodercat",
+      "displayName": "CozyCoderCat",
+      "description": "A cozy coder cat pet in an oversized navy hoodie, quietly working with a tiny laptop.",
+      "spritesheetPath": "spritesheet.webp",
+      "previewPath": "index.png",
+      "basePath": "pets/cozycodercat/"
     }
   ]
 }
