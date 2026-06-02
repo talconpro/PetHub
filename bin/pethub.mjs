@@ -1,18 +1,12 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { homedir } from 'node:os';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 
 const DEFAULT_OWNER = 'JiChaoSong';
 const DEFAULT_REPO = 'PetHub';
 const DEFAULT_BRANCH = 'main';
-const DEFAULT_INSTALL_DIR = '.codex/pets';
-
-const RAW_BASE = `https://raw.githubusercontent.com/${DEFAULT_OWNER}/${DEFAULT_REPO}/${DEFAULT_BRANCH}`;
-const CATALOG_URL = `${RAW_BASE}/pets.json`;
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const DEFAULT_INSTALL_DIR = '~/.codex/pets';
 
 function printHelp() {
   console.log(`PetHub CLI
@@ -25,10 +19,10 @@ Usage:
 Examples:
   npx pethub neonfox
   npx pethub cozycodercat
-  npx pethub neonfox --dir .codex/pets
+  npx pethub neonfox --dir ~/.codex/pets
 
 Options:
-  --dir <path>       Install root directory. Default: .codex/pets
+  --dir <path>       Install root directory. Default: ~/.codex/pets
   --force            Overwrite existing files
   --repo <owner/repo> Install from a custom GitHub repo. Default: JiChaoSong/PetHub
   --branch <branch>  Git branch. Default: main
@@ -64,6 +58,18 @@ function parseArgs(argv) {
   }
 
   return { command, options };
+}
+
+function resolveInstallRoot(dir) {
+  if (!dir || dir === DEFAULT_INSTALL_DIR) {
+    return join(homedir(), '.codex', 'pets');
+  }
+
+  if (dir === '~') return homedir();
+  if (dir.startsWith('~/')) return join(homedir(), dir.slice(2));
+  if (isAbsolute(dir)) return dir;
+
+  return resolve(process.cwd(), dir);
 }
 
 function getRawBase(options) {
@@ -145,7 +151,7 @@ async function installPet(options, petId) {
 
   const rawBase = getRawBase(options);
   const pet = await loadPetManifest(options, petId);
-  const installRoot = resolve(process.cwd(), options.dir);
+  const installRoot = resolveInstallRoot(options.dir);
   const petDir = join(installRoot, pet.id);
 
   const files = [
@@ -203,7 +209,8 @@ async function main() {
   }
 
   if (command === 'info') {
-    const petId = process.argv.slice(2).find((arg, index, arr) => index > 0 && !arr[index - 1].startsWith('--') && !arg.startsWith('--'));
+    const args = process.argv.slice(2);
+    const petId = args.find((arg, index) => index > 0 && !args[index - 1].startsWith('--') && !arg.startsWith('--'));
     await showPetInfo(options, petId);
     return;
   }
