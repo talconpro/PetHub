@@ -45,6 +45,9 @@ function normalizePet(raw, folderName) {
   if (!pet.author) pet.author = 'Community';
   if (!pet.version) pet.version = '1.0.0';
   if (!pet.license) pet.license = 'Unspecified';
+  if (!pet.githubUrl && pet.github) pet.githubUrl = pet.github;
+  if (!pet.githubUrl && pet.github_url) pet.githubUrl = pet.github_url;
+  if (!pet.githubUrl && pet.repository) pet.githubUrl = pet.repository;
 
   return pet;
 }
@@ -69,6 +72,10 @@ function validatePet(pet, folderName, manifestPath) {
   const previewFile = join(PETS_DIR, folderName, pet.previewPath || 'index.png');
   if (!existsSync(previewFile)) {
     errors.push(`missing preview file: ${pet.previewPath || 'index.png'}`);
+  }
+
+  if (pet.githubUrl && !/^https:\/\/github\.com\//i.test(pet.githubUrl)) {
+    errors.push('githubUrl must start with https://github.com/');
   }
 
   if (errors.length) {
