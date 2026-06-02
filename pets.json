@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "name": "PetHub Gallery Catalog",
+  "description": "Optional cache for the PetHub gallery. The homepage prefers real manifests from pets/<pet-id>/pet.json and uses this file as a fallback.",
+  "repository": "https://github.com/JiChaoSong/PetHub",
+  "pets": [
+    {
+      "id": "neonfox",
+      "displayName": "NeonFox",
+      "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
+      "spritesheetPath": "spritesheet.webp",
+      "basePath": "pets/neonfox/"
+    }
+  ]
+}

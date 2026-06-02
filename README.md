@@ -2,9 +2,10 @@
 
 **PetHub** is an open-source pet repository for collecting, sharing, and downloading Codex Pets.
 
-Each Pet is stored in its own folder and only needs two core files:
+Each Pet is stored in its own folder and should include three core files:
 
 ```text
+index.png
 spritesheet.webp
 pet.json
 ```
@@ -34,8 +35,10 @@ The recommended minimal structure is:
 ```text
 pethub/
 ├─ README.md
+├─ index.html
 └─ pets/
    └─ neonfox/
+      ├─ index.png
       ├─ spritesheet.webp
       └─ pet.json
 ```
@@ -46,11 +49,24 @@ Each Pet lives in its own folder under `pets/`.
 
 ## Pet File Specification
 
-Each Pet folder must include:
+Each Pet folder should include:
 
-### 1. `spritesheet.webp`
+### 1. `index.png`
 
-`spriteheet.webp` is the complete animation spritesheet for the Pet.
+`index.png` is the primary preview image used by the PetHub gallery.
+
+Recommended specs:
+
+- Format: PNG
+- Background: transparent preferred
+- Recommended size: 512 × 512 or larger square image
+- The Pet should be centered and clearly visible
+- No UI frame, text, watermark, logo, border, or background scene
+- Keep the image suitable for display on dark backgrounds
+
+### 2. `spritesheet.webp`
+
+`spritesheet.webp` is the complete animation spritesheet for the Pet.
 
 Recommended specs:
 
@@ -61,7 +77,7 @@ Recommended specs:
 - Each frame contains one complete pose
 - No text, logos, UI, borders, shadows, glows, speed lines, ground, or detached effects
 
-### 2. `pet.json`
+### 3. `pet.json`
 
 `pet.json` is the basic manifest file for the Pet.
 
@@ -76,14 +92,41 @@ Minimal example:
 }
 ```
 
+Recommended example:
+
+```json
+{
+  "id": "neonfox",
+  "displayName": "NeonFox",
+  "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
+  "spritesheetPath": "spritesheet.webp",
+  "previewPath": "index.png",
+  "category": "Beast",
+  "species": "codex.pet",
+  "tags": ["fox", "cyberpunk", "hacker"],
+  "author": "@your-github-name",
+  "version": "1.0.0",
+  "license": "MIT",
+  "accent": "#00d992"
+}
+```
+
 Field description:
 
 | Field | Description |
 |---|---|
-| `id` | Unique Pet ID. Use lowercase letters, numbers, and hyphens |
+| `id` | Unique Pet ID. Use lowercase letters, numbers, and hyphens. Must match the folder name |
 | `displayName` | Display name of the Pet |
 | `description` | Short description of the Pet |
 | `spritesheetPath` | Path to the spritesheet file, usually `spritesheet.webp` |
+| `previewPath` | Path to the gallery preview image, usually `index.png` |
+| `category` | Pet category, such as `Beast`, `Robot`, `Spirit`, `Plant`, `Aquatic`, `Mythic`, or `Other` |
+| `species` | Optional species/type label. Default: `codex.pet` |
+| `tags` | Optional search tags |
+| `author` | Creator name or GitHub handle |
+| `version` | Pet version |
+| `license` | Asset license |
+| `accent` | Optional hex color used by the gallery card |
 
 ---
 
@@ -133,19 +176,41 @@ PetHub does not require a fixed animation state list at the moment, but the foll
 
 ---
 
-## How to Add a New Pet
+## How to Submit a New Pet
+
+The recommended submission method is GitHub Issues.
+
+1. Open a new issue with the **Pet Submission** template.
+2. Fill in the Pet information.
+3. Upload or link `index.png`, `spritesheet.webp`, and `pet.json`.
+4. Wait for maintainer review.
+5. After approval, the Pet can be added through a Pull Request.
+
+Read the full submission guide:
+
+```text
+docs/PET_SUBMISSION_GUIDE.md
+```
+
+---
+
+## How to Add a New Pet by Pull Request
+
+If you are comfortable with Git, you may also submit a Pull Request directly.
 
 1. Create a new Pet folder under `pets/`.
-2. Add `spritesheet.webp`.
-3. Create `pet.json`.
-4. Make sure the `id` in `pet.json` matches the folder name.
-5. Submit a Pull Request.
+2. Add `index.png`.
+3. Add `spritesheet.webp`.
+4. Create `pet.json`.
+5. Make sure the `id` in `pet.json` matches the folder name.
+6. Submit a Pull Request.
 
 Example:
 
 ```text
 pets/
 └─ neonfox/
+   ├─ index.png
    ├─ spritesheet.webp
    └─ pet.json
 ```
@@ -157,6 +222,7 @@ pets/
 Before submitting a Pet, please make sure:
 
 - The Pet is original, shareable, or properly licensed
+- `index.png` can be displayed correctly in the gallery
 - `spritesheet.webp` can be opened correctly
 - `pet.json` is valid JSON
 - The folder name matches the `id` in `pet.json`
@@ -180,7 +246,8 @@ Then load its manifest in your own project:
   "id": "neonfox",
   "displayName": "NeonFox",
   "description": "A cyberpunk fox hacker pet with neon techwear, bright ears, and a tiny wrist deck.",
-  "spritesheetPath": "spritesheet.webp"
+  "spritesheetPath": "spritesheet.webp",
+  "previewPath": "index.png"
 }
 ```
 
