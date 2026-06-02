@@ -1,0 +1,507 @@
+{
+  "schemaVersion": 1,
+  "name": "PetHub Gallery Demo Catalog",
+  "description": "Demo catalog for the PetHub GitHub Pages gallery. Replace or generate this file from pets/<pet-id>/pet.json as real pets are added.",
+  "repository": "https://github.com/JiChaoSong/PetHub",
+  "pets": [
+    {
+      "name": "Pixl",
+      "species": "codex.slime",
+      "cat": "Slime",
+      "accent": "#62d96b",
+      "rarity": "Common",
+      "desc": "A gelatinous companion that purrs in hexadecimal and never leaves a trace in your stack traces.",
+      "tags": [
+        "slime",
+        "cozy",
+        "starter"
+      ],
+      "stars": 1284,
+      "downloads": 9402,
+      "ver": "v2.1.0",
+      "author": "@glob",
+      "palette": {
+        "g": "#62d96b",
+        "w": "#ffffff",
+        "p": "#15321a",
+        "b": "#ff9bb0"
+      },
+      "art": [
+        "............",
+        "....g..g....",
+        "...gg..gg...",
+        "..gggggggg..",
+        ".gggggggggg.",
+        ".gggggggggg.",
+        "gggwwggwwggg",
+        "ggwppwwppwgg",
+        "ggwwwwwwwwgg",
+        "gbggggggggbg",
+        ".gggggggggg.",
+        "..gggggggg.."
+      ],
+      "id": "pixl",
+      "displayName": "Pixl",
+      "category": "Slime",
+      "command": "codex pet add pixl",
+      "license": "MIT"
+    },
+    {
+      "name": "Null",
+      "species": "codex.spirit",
+      "cat": "Spirit",
+      "accent": "#b9aaff",
+      "rarity": "Rare",
+      "desc": "Haunts unhandled exceptions. Friendly, mostly — appears precisely when you least expect it.",
+      "tags": [
+        "ghost",
+        "spooky",
+        "async"
+      ],
+      "stars": 2210,
+      "downloads": 15800,
+      "ver": "v1.4.2",
+      "author": "@sigterm",
+      "palette": {
+        "w": "#e7e3ff",
+        "b": "#4a3b6b"
+      },
+      "art": [
+        "............",
+        "...wwwww....",
+        "..wwwwwww...",
+        ".wwwwwwwww..",
+        ".wwbbwbbww..",
+        ".wwbbwbbww..",
+        ".wwwwwwwww..",
+        ".wwwwwwwww..",
+        ".wwwwwwwww..",
+        ".wwwwwwwww..",
+        ".w.ww.ww.w..",
+        "............"
+      ],
+      "id": "null",
+      "displayName": "Null",
+      "category": "Spirit",
+      "command": "codex pet add null",
+      "license": "MIT"
+    },
+    {
+      "name": "Voxel",
+      "species": "codex.cube",
+      "cat": "Geometric",
+      "accent": "#9b6dff",
+      "rarity": "Common",
+      "desc": "A perfectly cubic familiar. Tessellates on command and never, ever goes off-grid.",
+      "tags": [
+        "cube",
+        "geometric",
+        "tidy"
+      ],
+      "stars": 980,
+      "downloads": 7320,
+      "ver": "v3.0.1",
+      "author": "@mesh",
+      "palette": {
+        "c": "#9b6dff",
+        "e": "#ffffff",
+        "p": "#2a1450",
+        "m": "#5a3aa8"
+      },
+      "art": [
+        "............",
+        ".cccccccccc.",
+        ".cccccccccc.",
+        ".cceecceecc.",
+        ".ccepccepcc.",
+        ".cccccccccc.",
+        ".cccccccccc.",
+        ".ccmmmmmmcc.",
+        ".cccccccccc.",
+        ".cccccccccc.",
+        ".c.c....c.c.",
+        "............"
+      ],
+      "id": "voxel",
+      "displayName": "Voxel",
+      "category": "Geometric",
+      "command": "codex pet add voxel",
+      "license": "MIT"
+    },
+    {
+      "name": "Ember",
+      "species": "codex.drake",
+      "cat": "Mythic",
+      "accent": "#ff7a3d",
+      "rarity": "Legendary",
+      "desc": "A hatchling drake that breathes warm logs. Said to grow one pixel for every thousand commits.",
+      "tags": [
+        "dragon",
+        "fire",
+        "mythic"
+      ],
+      "stars": 4820,
+      "downloads": 38110,
+      "ver": "v2.7.0",
+      "author": "@forge",
+      "palette": {
+        "o": "#ff7a3d",
+        "e": "#ffe14d",
+        "p": "#7a2d10",
+        "y": "#ffd9a0"
+      },
+      "art": [
+        "............",
+        "..o......o..",
+        "..oo....oo..",
+        "..oooooooo..",
+        ".oooooooooo.",
+        ".ooeooooeoo.",
+        ".oopoooopoo.",
+        ".oooooooooo.",
+        ".ooyyyyyyoo.",
+        ".oooooooooo.",
+        "..o..oo..o..",
+        "............"
+      ],
+      "id": "ember",
+      "displayName": "Ember",
+      "category": "Mythic",
+      "command": "codex pet add ember",
+      "license": "MIT"
+    },
+    {
+      "name": "Drift",
+      "species": "codex.jelly",
+      "cat": "Aquatic",
+      "accent": "#46d6e0",
+      "rarity": "Rare",
+      "desc": "Floats serenely through async waters. Stings only the memory leaks it happens to drift past.",
+      "tags": [
+        "jellyfish",
+        "ocean",
+        "calm"
+      ],
+      "stars": 1640,
+      "downloads": 11240,
+      "ver": "v1.9.0",
+      "author": "@tide",
+      "palette": {
+        "j": "#46d6e0",
+        "w": "#ffffff",
+        "p": "#0a3b40"
+      },
+      "art": [
+        "............",
+        "...jjjjjj...",
+        "..jjjjjjjj..",
+        ".jjjjjjjjjj.",
+        ".jjwwjjwwjj.",
+        ".jjwpjjwpjj.",
+        ".jjjjjjjjjj.",
+        ".jjjjjjjjjj.",
+        "..j.j.j.j...",
+        "..j.j.j.j...",
+        ".j..j.j..j..",
+        "............"
+      ],
+      "id": "drift",
+      "displayName": "Drift",
+      "category": "Aquatic",
+      "command": "codex pet add drift",
+      "license": "MIT"
+    },
+    {
+      "name": "Vulp",
+      "species": "codex.beast",
+      "cat": "Beast",
+      "accent": "#ff8c42",
+      "rarity": "Epic",
+      "desc": "Quick, clever, and unreasonably good at sniffing out the edge cases everyone else missed.",
+      "tags": [
+        "fox",
+        "clever",
+        "companion"
+      ],
+      "stars": 3055,
+      "downloads": 22890,
+      "ver": "v2.3.1",
+      "author": "@den",
+      "palette": {
+        "f": "#ff8c42",
+        "w": "#ffffff",
+        "p": "#2a1505"
+      },
+      "art": [
+        ".f........f.",
+        ".ff......ff.",
+        ".ffffffffff.",
+        ".ffffffffff.",
+        ".ffwwffwwff.",
+        ".ffwpffwpff.",
+        ".ffffwwffff.",
+        ".fffwwwwfff.",
+        ".ffffwwffff.",
+        "..ffffffff..",
+        "...f....f...",
+        "............"
+      ],
+      "id": "vulp",
+      "displayName": "Vulp",
+      "category": "Beast",
+      "command": "codex pet add vulp",
+      "license": "MIT"
+    },
+    {
+      "name": "Cogs",
+      "species": "codex.bot",
+      "cat": "Robot",
+      "accent": "#ffd23f",
+      "rarity": "Epic",
+      "desc": "A tireless little automaton. Compiles affection at O(1) and reboots with a cheerful chirp.",
+      "tags": [
+        "robot",
+        "helper",
+        "retro"
+      ],
+      "stars": 2740,
+      "downloads": 19560,
+      "ver": "v4.1.0",
+      "author": "@bolt",
+      "palette": {
+        "y": "#ffd23f",
+        "s": "#2b2b3d",
+        "e": "#44f0c8",
+        "m": "#44f0c8",
+        "r": "#ff5470"
+      },
+      "art": [
+        ".....rr.....",
+        ".....yy.....",
+        ".yyyyyyyyyy.",
+        ".yssssssssy.",
+        ".yseesseesy.",
+        ".yssssssssy.",
+        ".ysmmmmmmsy.",
+        ".yyyyyyyyyy.",
+        ".yyyyyyyyyy.",
+        ".yyyyyyyyyy.",
+        ".y.y....y.y.",
+        "............"
+      ],
+      "id": "cogs",
+      "displayName": "Cogs",
+      "category": "Robot",
+      "command": "codex pet add cogs",
+      "license": "MIT"
+    },
+    {
+      "name": "Fern",
+      "species": "codex.sprout",
+      "cat": "Plant",
+      "accent": "#5bbf5b",
+      "rarity": "Common",
+      "desc": "A potted sprite that grows a shade greener with every passing green build. Photosynthesises optimism.",
+      "tags": [
+        "plant",
+        "cozy",
+        "grow"
+      ],
+      "stars": 1120,
+      "downloads": 8650,
+      "ver": "v1.2.0",
+      "author": "@root",
+      "palette": {
+        "g": "#5bbf5b",
+        "b": "#c08552",
+        "e": "#ffffff",
+        "p": "#2a1a0a",
+        "m": "#7a4a28"
+      },
+      "art": [
+        ".....gg.....",
+        "...g.gg.g...",
+        "...gg..gg...",
+        ".....gg.....",
+        "..bbbbbbbb..",
+        ".bbbbbbbbbb.",
+        ".bbeebbeebb.",
+        ".bbepbbepbb.",
+        ".bbbbbbbbbb.",
+        ".bbmmmmmmbb.",
+        "..bbbbbbbb..",
+        "............"
+      ],
+      "id": "fern",
+      "displayName": "Fern",
+      "category": "Plant",
+      "command": "codex pet add fern",
+      "license": "MIT"
+    },
+    {
+      "name": "Geode",
+      "species": "codex.crystal",
+      "cat": "Mythic",
+      "accent": "#5b8def",
+      "rarity": "Legendary",
+      "desc": "A living crystal that refracts your test coverage into quiet little rainbows on the wall.",
+      "tags": [
+        "crystal",
+        "shiny",
+        "mythic"
+      ],
+      "stars": 5210,
+      "downloads": 41200,
+      "ver": "v2.0.0",
+      "author": "@vein",
+      "palette": {
+        "k": "#5b8def",
+        "w": "#dbe9ff"
+      },
+      "art": [
+        ".....kk.....",
+        "....kkkk....",
+        "...kkkkkk...",
+        "..kkkkkkkk..",
+        ".kkwwkkwwkk.",
+        ".kkkkkkkkkk.",
+        "..kkkkkkkk..",
+        "...kkkkkk...",
+        "....kkkk....",
+        ".....kk.....",
+        "............",
+        "............"
+      ],
+      "id": "geode",
+      "displayName": "Geode",
+      "category": "Mythic",
+      "command": "codex pet add geode",
+      "license": "MIT"
+    },
+    {
+      "name": "Echo",
+      "species": "codex.spirit",
+      "cat": "Spirit",
+      "accent": "#8b5cf6",
+      "rarity": "Rare",
+      "desc": "Navigates dark codebases by echolocation. Tends to hang around at exactly 3am.",
+      "tags": [
+        "bat",
+        "nocturnal",
+        "mono"
+      ],
+      "stars": 1390,
+      "downloads": 10110,
+      "ver": "v1.1.5",
+      "author": "@sonar",
+      "palette": {
+        "v": "#8b5cf6",
+        "w": "#ffffff",
+        "p": "#1a0b2e"
+      },
+      "art": [
+        "............",
+        "............",
+        ".vv......vv.",
+        "vvvv....vvvv",
+        "vvvvv..vvvvv",
+        ".vvvvvvvvvv.",
+        "..vvwwwwvv..",
+        "..vvwpwpvv..",
+        "..vvvvvvvv..",
+        "...v.vv.v...",
+        "............",
+        "............"
+      ],
+      "id": "echo",
+      "displayName": "Echo",
+      "category": "Spirit",
+      "command": "codex pet add echo",
+      "license": "MIT"
+    },
+    {
+      "name": "Quack",
+      "species": "codex.beast",
+      "cat": "Beast",
+      "accent": "#ffd23f",
+      "rarity": "Epic",
+      "desc": "The original rubber-duck, now fully sentient. Listens patiently to every single one of your bugs.",
+      "tags": [
+        "duck",
+        "debug",
+        "classic"
+      ],
+      "stars": 3920,
+      "downloads": 31040,
+      "ver": "v5.0.0",
+      "author": "@pond",
+      "palette": {
+        "d": "#ffd23f",
+        "w": "#ffffff",
+        "p": "#1a1a1a",
+        "o": "#ff8c1a"
+      },
+      "art": [
+        "............",
+        "....dddd....",
+        "...dddddd...",
+        "...ddwpdd...",
+        "...dddddd...",
+        "..ddddddoo..",
+        "...dddddd...",
+        "..dddddddd..",
+        ".dddddddddd.",
+        ".dddddddddd.",
+        "..o......o..",
+        "............"
+      ],
+      "id": "quack",
+      "displayName": "Quack",
+      "category": "Beast",
+      "command": "codex pet add quack",
+      "license": "MIT"
+    },
+    {
+      "name": "Spore",
+      "species": "codex.plant",
+      "cat": "Plant",
+      "accent": "#ff5470",
+      "rarity": "Common",
+      "desc": "A spore sprite from the deep node_modules forest. Surprisingly load-bearing for its size.",
+      "tags": [
+        "mushroom",
+        "forest",
+        "tiny"
+      ],
+      "stars": 870,
+      "downloads": 6240,
+      "ver": "v0.9.1",
+      "author": "@myco",
+      "palette": {
+        "m": "#ff5470",
+        "o": "#ffffff",
+        "s": "#ffe9d6",
+        "p": "#5a2230"
+      },
+      "art": [
+        "............",
+        "...mmmmmm...",
+        "..mmmmmmmm..",
+        ".mmoommoomm.",
+        ".mmmmmmmmmm.",
+        "..mmmmmmmm..",
+        "...ssssss...",
+        "...spssps...",
+        "...ssssss...",
+        "...smmmms...",
+        "...ssssss...",
+        "............"
+      ],
+      "id": "spore",
+      "displayName": "Spore",
+      "category": "Plant",
+      "command": "codex pet add spore",
+      "license": "MIT"
+    }
+  ]
+}
