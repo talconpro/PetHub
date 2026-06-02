@@ -7,6 +7,7 @@ const DEFAULT_OWNER = 'talconpro';
 const DEFAULT_REPO = 'PetHub';
 const DEFAULT_BRANCH = 'main';
 const DEFAULT_INSTALL_DIR = '~/.codex/pets';
+const REQUEST_TIMEOUT_MS = 15000;
 
 function printHelp() {
   console.log(`PetHub CLI
@@ -81,15 +82,34 @@ function getRawBase(options) {
 }
 
 async function fetchJson(url) {
-  const res = await fetch(url, { headers: { accept: 'application/json' } });
-  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
-  return res.json();
+  return fetchWithTimeout(url, { headers: { accept: 'application/json' } }).then((res) => res.json());
 }
 
 async function fetchBytes(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+  const res = await fetchWithTimeout(url);
   return Buffer.from(await res.arrayBuffer());
+}
+
+async function fetchWithTimeout(url, options = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    if (!res.ok) throw new Error(`Failed to fetch ${url}: ${res.status}`);
+    return res;
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      throw new Error(`Timed out fetching ${url} after ${REQUEST_TIMEOUT_MS / 1000}s`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function status(message) {
+  if (process.stderr.isTTY) console.error(message);
 }
 
 async function loadCatalog(options) {
@@ -150,6 +170,7 @@ async function installPet(options, petId) {
   }
 
   const rawBase = getRawBase(options);
+  status(`Fetching ${petId} from ${options.repo}...`);
   const pet = await loadPetManifest(options, petId);
   const installRoot = resolveInstallRoot(options.dir);
   const petDir = join(installRoot, pet.id);
@@ -176,6 +197,7 @@ async function installPet(options, petId) {
 }
 
 async function listPets(options) {
+  status(`Fetching PetHub catalog from ${options.repo}...`);
   const catalog = await loadCatalog(options);
   const pets = [...(catalog.pets || [])].sort((a, b) => a.id.localeCompare(b.id));
 
@@ -191,6 +213,7 @@ async function listPets(options) {
 
 async function showPetInfo(options, petId) {
   if (!petId) throw new Error('Missing pet_id. Example: npx @talcon/pethub info neonfox');
+  status(`Fetching ${petId} from ${options.repo}...`);
   const pet = await loadPetManifest(options, petId);
   console.log(JSON.stringify(pet, null, 2));
 }
