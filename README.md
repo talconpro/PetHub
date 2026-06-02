@@ -1,16 +1,32 @@
 # PetHub
 
-**PetHub** is an open-source pet repository for collecting, sharing, and installing Codex Pets.
+**PetHub — Share Your Desktop Pet.**
 
-Each Pet is stored in its own folder and should include three core files:
+PetHub is an open-source desktop pet sharing platform for collecting, publishing, installing, and discovering community-made desktop pets.
 
-```text
-index.png
-spritesheet.webp
-pet.json
+Every Pet can be previewed in the gallery, installed with one command, and linked back to its creator or project on GitHub.
+
+```bash
+npx pethub neonfox
 ```
 
-Users can install their favorite Pets with the PetHub CLI, download them directly, or integrate PetHub into Codex Pet clients, desktop pet tools, or other creative projects.
+By default, the PetHub CLI installs pets into:
+
+```text
+~/.codex/pets/<pet-id>/
+```
+
+---
+
+## What is PetHub?
+
+PetHub is built around one simple idea:
+
+> Share your desktop pet.
+
+Creators can submit their own pets. Users can browse the gallery, install pets locally, and use them in Codex Pet clients, desktop pet tools, or other creative projects.
+
+PetHub is not just a file repository. It is a community index for desktop pet assets, metadata, authorship, and future pet ecosystems.
 
 ---
 
@@ -56,15 +72,16 @@ npx pethub info neonfox
 
 ## Project Goal
 
-PetHub aims to become a lightweight, open, and contribution-friendly Codex Pet resource hub.
+PetHub aims to become a lightweight, open, and contribution-friendly desktop pet hub.
 
 Its goals are to:
 
-- Collect Codex Pets in different visual styles
-- Provide a simple and consistent file structure for every Pet
-- Let users install and use Pets quickly
-- Make it easy for creators to submit their own Pets
-- Provide a foundation for future Pet marketplaces, Pet managers, or plugin ecosystems
+- Help creators share their desktop pets
+- Help users discover and install pets quickly
+- Provide a simple and consistent package structure for every Pet
+- Preserve creator attribution and GitHub links
+- Support PetHub Gallery, CLI install, issue-based submissions, and PR-based contributions
+- Provide a foundation for future desktop pet managers, marketplaces, and plugin ecosystems
 
 ---
 
@@ -122,7 +139,7 @@ Recommended specs:
 
 ### 3. `pet.json`
 
-`pet.json` is the basic manifest file for the Pet.
+`pet.json` is the manifest file for the Pet.
 
 Minimal example:
 
@@ -145,9 +162,10 @@ Recommended example:
   "spritesheetPath": "spritesheet.webp",
   "previewPath": "index.png",
   "category": "Beast",
-  "species": "codex.pet",
+  "species": "desktop.pet",
   "tags": ["fox", "cyberpunk", "hacker"],
   "author": "@your-github-name",
+  "githubUrl": "https://github.com/your-name",
   "version": "1.0.0",
   "license": "MIT",
   "accent": "#00d992"
@@ -158,15 +176,16 @@ Field description:
 
 | Field | Description |
 |---|---|
-| `id` | Unique Pet ID. Use lowercase letters, numbers, and hyphens. Must match the folder name |
+| `id` | Unique Pet ID. Use lowercase letters, numbers, hyphens, or underscores. Must match the folder name |
 | `displayName` | Display name of the Pet |
 | `description` | Short description of the Pet |
 | `spritesheetPath` | Path to the spritesheet file, usually `spritesheet.webp` |
 | `previewPath` | Path to the gallery preview image, usually `index.png` |
 | `category` | Pet category, such as `Beast`, `Robot`, `Spirit`, `Plant`, `Aquatic`, `Mythic`, or `Other` |
-| `species` | Optional species/type label. Default: `codex.pet` |
+| `species` | Optional species/type label. Default: `desktop.pet` |
 | `tags` | Optional search tags |
 | `author` | Creator name or GitHub handle |
+| `githubUrl` | Optional creator or project GitHub link shown on the Pet card |
 | `version` | Pet version |
 | `license` | Asset license |
 | `accent` | Optional hex color used by the gallery card |
@@ -175,18 +194,14 @@ Field description:
 
 ## Recommended Naming Convention
 
-Pet IDs should use:
-
-```text
-lowercase-kebab-case
-```
+Pet IDs should use lowercase letters, numbers, hyphens, or underscores.
 
 Examples:
 
 ```text
 neonfox
 cozy-coder-cat
-pixel-panda
+byte_panda
 cyber-rabbit
 ```
 
@@ -194,9 +209,9 @@ Avoid:
 
 ```text
 Neon Fox
-neon_fox
 pet 01
 my pet!!!
+宠物01
 ```
 
 ---
@@ -226,8 +241,9 @@ The recommended submission method is GitHub Issues.
 1. Open a new issue with the **Pet Submission** template.
 2. Fill in the Pet information.
 3. Upload or link `index.png`, `spritesheet.webp`, and `pet.json`.
-4. Wait for maintainer review.
-5. After approval, the Pet can be added through a Pull Request.
+4. Add a `githubUrl` if you want the Pet card to link to your GitHub profile or project.
+5. Wait for maintainer review.
+6. After approval, the Pet can be added through a Pull Request.
 
 Read the full submission guide:
 
@@ -314,15 +330,16 @@ pets/<pet-id>/
 
 ## Roadmap
 
-- Pet preview page
-- Online PetHub Gallery
+- Desktop PetHub Gallery
 - Pet categories and tags
 - Pet search
-- One-click download
-- Contributor leaderboard
+- One-command install with `npx pethub <pet-id>`
+- Contributor and creator links
+- Issue-based pet submissions
+- Auto-generated `pets.json` catalog
 - More complete animation state specification
 - Pet package format
-- Auto-install support for Codex Pet clients
+- Desktop pet manager integration
 
 ---
 
@@ -336,6 +353,6 @@ Each Pet asset may declare its own license in `pet.json`. If no license is decla
 
 ## Community
 
-Codex Pet submissions are welcome.
+Share your desktop pet.
 
 Let everyone have their own little companion.
