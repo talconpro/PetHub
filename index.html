@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetHub — The Codex Pet Cabinet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,400;1,9..144,500&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0b0f;
+    --bg2:#16121b;
+    --frame-hi:#e3bd76;
+    --frame:#caa15e;
+    --frame-lo:#5e4626;
+    --frame-dk:#352716;
+    --paper:#ece4d3;
+    --ink:#22190f;
+    --text:#ece4d2;
+    --muted:#968b78;
+    --muted-dim:#615a4d;
+    --glass:rgba(180,205,215,.05);
+    --gold:#f0b35a;
+    --line:rgba(202,161,94,.18);
+    --serif:'Fraunces',Georgia,serif;
+    --mono:'Space Mono','Courier New',monospace;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(120% 90% at 50% -10%, #1c1622 0%, transparent 55%),
+      radial-gradient(80% 60% at 50% 120%, #181019 0%, transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--mono);
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* film grain */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:999;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity:.05;mix-blend-mode:overlay;
+  }
+  /* vignette */
+  body::before{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:998;
+    background:radial-gradient(120% 100% at 50% 40%, transparent 55%, rgba(0,0,0,.55) 100%);
+  }
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:22px 0 14px;flex-wrap:wrap;position:relative;z-index:2;
+  }
+  .brand{display:flex;align-items:center;gap:13px}
+  .brand .mark{
+    width:42px;height:42px;border-radius:10px;display:grid;place-items:center;flex:none;
+    background:linear-gradient(150deg,var(--frame-hi),var(--frame-lo));
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.4), 0 6px 18px rgba(0,0,0,.5);
+    position:relative;
+  }
+  .brand .mark svg{width:24px;height:24px;image-rendering:pixelated}
+  .brand b{font-family:var(--serif);font-weight:900;font-size:1.42rem;letter-spacing:-.01em}
+  .brand b span{color:var(--gold)}
+  .brand small{display:block;font-size:.62rem;color:var(--muted);letter-spacing:.22em;text-transform:uppercase;margin-top:1px}
+  .top-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .pill{
+    font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;
+    padding:7px 12px;border-radius:99px;border:1px solid var(--line);color:var(--muted);
+    display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.015)
+  }
+  .pill .dot{width:7px;height:7px;border-radius:99px;background:#5ad17a;box-shadow:0 0 8px #5ad17a}
+  .ghost-btn{
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;cursor:pointer;
+    padding:9px 16px;border-radius:8px;color:var(--ink);font-weight:700;
+    background:linear-gradient(150deg,var(--frame-hi),var(--frame));
+    border:1px solid var(--frame-lo);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 4px 14px rgba(0,0,0,.4);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .ghost-btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 22px rgba(0,0,0,.5)}
+
+  /* ---------- hero ---------- */
+  .hero{padding:40px 0 30px;text-align:center;position:relative;z-index:2}
+  .eyebrow{
+    font-size:.7rem;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:18px;opacity:.9
+  }
+  .hero h1{
+    font-family:var(--serif);font-weight:900;line-height:.96;letter-spacing:-.025em;
+    font-size:clamp(2.6rem,8vw,5.6rem);
+    background:linear-gradient(180deg,#fdf6e7 0%, #e8d6b0 60%, #b08d4f 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 2px 40px rgba(240,179,90,.15);
+  }
+  .hero h1 em{font-style:italic;font-weight:400}
+  .hero p{
+    max-width:560px;margin:22px auto 0;color:var(--muted);font-size:.92rem;line-height:1.7
+  }
+  .hero .stats{display:flex;justify-content:center;gap:clamp(20px,5vw,54px);margin-top:34px;flex-wrap:wrap}
+  .stat{text-align:center}
+  .stat b{font-family:var(--serif);font-size:2rem;font-weight:900;display:block;color:var(--text);line-height:1}
+  .stat span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-dim);margin-top:7px;display:block}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    margin:8px 0 26px;position:relative;z-index:2
+  }
+  .search{position:relative;flex:1;min-width:220px}
+  .search input{
+    width:100%;font-family:var(--mono);font-size:.82rem;color:var(--text);
+    background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:10px;
+    padding:13px 14px 13px 38px;outline:none;transition:border-color .2s, box-shadow .2s
+  }
+  .search input::placeholder{color:var(--muted-dim)}
+  .search input:focus{border-color:var(--frame);box-shadow:0 0 0 3px rgba(202,161,94,.12)}
+  .search .ic{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.85rem}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;cursor:pointer;
+    padding:9px 13px;border-radius:8px;border:1px solid var(--line);color:var(--muted);
+    background:rgba(255,255,255,.012);transition:all .18s ease;white-space:nowrap
+  }
+  .chip:hover{color:var(--text);border-color:var(--frame-lo)}
+  .chip.on{background:var(--gold);color:#2a1d08;border-color:var(--gold);font-weight:700}
+  select.sort{
+    font-family:var(--mono);font-size:.72rem;color:var(--text);cursor:pointer;
+    background:rgba(0,0,0,.35);border:1px solid var(--line);border-radius:10px;
+    padding:12px 14px;outline:none
+  }
+  select.sort option{background:#1a141f}
+
+  /* ---------- cabinet ---------- */
+  .cabinet-frame{
+    background:
+      linear-gradient(150deg, var(--frame-hi) 0%, var(--frame-lo) 28%, var(--frame) 52%, var(--frame-dk) 78%, var(--frame) 100%);
+    border-radius:20px;padding:13px;margin-bottom:60px;position:relative;z-index:2;
+    box-shadow:0 40px 90px rgba(0,0,0,.6), inset 0 2px 0 rgba(255,255,255,.3), inset 0 -2px 6px rgba(0,0,0,.4);
+  }
+  .cabinet-frame::before{
+    content:"";position:absolute;inset:5px;border-radius:14px;
+    border:1px solid rgba(0,0,0,.35);pointer-events:none
+  }
+  .plaque{
+    display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    margin:2px 6px 12px;padding:9px 16px;border-radius:8px;
+    background:linear-gradient(180deg,#3a2c18,#241a0e);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 2px 6px rgba(0,0,0,.4);
+  }
+  .plaque h2{font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--frame-hi);letter-spacing:.04em}
+  .plaque span{font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#8a6c3e}
+  .cabinet{
+    border-radius:11px;padding:clamp(14px,2.6vw,30px);
+    background:
+      radial-gradient(130% 70% at 50% 0%, rgba(255,235,200,.05), transparent 60%),
+      linear-gradient(180deg,#0a0810 0%, #100b16 100%);
+    box-shadow:inset 0 0 0 1px rgba(0,0,0,.6), inset 0 8px 40px rgba(0,0,0,.7);
+  }
+  .grid{
+    display:grid;gap:clamp(14px,2vw,24px);
+    grid-template-columns:repeat(auto-fill,minmax(228px,1fr));
+  }
+
+  /* ---------- specimen card ---------- */
+  .specimen{
+    --accent:#cccccc;
+    background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.008));
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:13px;overflow:hidden;cursor:pointer;
+    display:flex;flex-direction:column;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    transition:transform .28s cubic-bezier(.2,.8,.2,1), box-shadow .28s, border-color .28s;
+    opacity:0;transform:translateY(22px);
+    animation:rise .6s cubic-bezier(.2,.8,.2,1) forwards;
+  }
+  @keyframes rise{to{opacity:1;transform:none}}
+  .specimen:hover{
+    transform:translateY(-7px);border-color:color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow:0 22px 50px rgba(0,0,0,.55), 0 0 0 1px color-mix(in srgb,var(--accent) 30%, transparent);
+  }
+
+  .niche{
+    position:relative;height:172px;overflow:hidden;
+    background:
+      radial-gradient(80% 75% at 50% -6%, color-mix(in srgb,var(--accent) 26%, transparent), transparent 62%),
+      linear-gradient(180deg,#05040a 0%, #0c0913 60%, #07060d 100%);
+    border-bottom:1px solid rgba(255,255,255,.05);
+  }
+  /* spotlight cone */
+  .niche .spot{
+    position:absolute;top:-30px;left:50%;transform:translateX(-50%);
+    width:130px;height:150px;pointer-events:none;
+    background:conic-gradient(from 180deg at 50% 0%, transparent 158deg, color-mix(in srgb,var(--accent) 22%, transparent) 180deg, transparent 202deg);
+    filter:blur(5px);opacity:.85;
+  }
+  .pet{
+    position:absolute;left:50%;top:34px;transform:translateX(-50%);
+    width:96px;height:96px;
+    filter:drop-shadow(0 0 14px color-mix(in srgb,var(--accent) 70%, transparent)) drop-shadow(0 8px 10px rgba(0,0,0,.5));
+    animation:bob 4.4s ease-in-out infinite;
+  }
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+  .specimen:hover .pet{animation-duration:2s}
+  .pet svg{width:100%;height:100%;display:block}
+  .pet img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;display:block}
+  /* reflection on the glass shelf */
+  .pet.refl{
+    top:auto;bottom:-2px;transform:translateX(-50%) scaleY(-1);
+    opacity:.16;filter:blur(.5px);animation:none;
+    -webkit-mask-image:linear-gradient(to top, rgba(0,0,0,.7), transparent 70%);
+            mask-image:linear-gradient(to top, rgba(0,0,0,.7), transparent 70%);
+  }
+  /* glass shelf line */
+  .niche .shelf{
+    position:absolute;left:8%;right:8%;bottom:30px;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,transparent, color-mix(in srgb,var(--accent) 60%, #fff) , transparent);
+    opacity:.5;box-shadow:0 0 12px color-mix(in srgb,var(--accent) 50%, transparent)
+  }
+  .rarity{
+    position:absolute;top:11px;left:11px;font-size:.56rem;letter-spacing:.13em;text-transform:uppercase;
+    padding:4px 8px;border-radius:6px;font-weight:700;backdrop-filter:blur(4px);
+    border:1px solid rgba(255,255,255,.14)
+  }
+  .r-common{color:#b9b1a0;background:rgba(150,139,120,.16)}
+  .r-rare{color:#8fb6ff;background:rgba(91,141,239,.16)}
+  .r-epic{color:#cfa0ff;background:rgba(176,108,255,.18)}
+  .r-legendary{color:#ffd98a;background:rgba(240,179,90,.2);box-shadow:0 0 16px rgba(240,179,90,.25)}
+  .idx{
+    position:absolute;top:11px;right:13px;font-size:.62rem;color:var(--muted-dim);letter-spacing:.1em
+  }
+
+  .label{padding:15px 15px 14px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .namerow{display:flex;align-items:baseline;justify-content:space-between;gap:8px}
+  .namerow h3{font-family:var(--serif);font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+  .species{font-size:.62rem;color:var(--accent);letter-spacing:.04em;white-space:nowrap;opacity:.85}
+  .desc{font-family:var(--serif);font-style:italic;font-size:.82rem;line-height:1.5;color:var(--muted);flex:1}
+  .tags{display:flex;flex-wrap:wrap;gap:5px}
+  .tags i{font-style:normal;font-size:.6rem;color:var(--muted-dim);padding:3px 7px;border-radius:5px;background:rgba(255,255,255,.04)}
+  .meta{display:flex;align-items:center;gap:12px;font-size:.66rem;color:var(--muted);padding-top:2px;border-top:1px solid rgba(255,255,255,.05);margin-top:2px}
+  .meta b{color:var(--text);font-weight:700}
+  .meta .v{margin-left:auto;color:var(--muted-dim)}
+  .actions{display:flex;gap:8px}
+  .dl{
+    flex:1;font-family:var(--mono);font-size:.66rem;letter-spacing:.02em;cursor:pointer;
+    padding:10px;border-radius:8px;color:var(--text);text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    background:color-mix(in srgb,var(--accent) 14%, #000);
+    border:1px solid color-mix(in srgb,var(--accent) 40%, transparent);
+    transition:background .18s, transform .12s
+  }
+  .dl:hover{background:color-mix(in srgb,var(--accent) 26%, #000)}
+  .dl:active{transform:scale(.97)}
+  .dl b{color:var(--accent)}
+  .star{
+    width:40px;flex:none;cursor:pointer;border-radius:8px;font-size:.9rem;color:var(--muted);
+    background:rgba(255,255,255,.04);border:1px solid var(--line);transition:all .15s
+  }
+  .star:hover{color:var(--gold);border-color:var(--frame-lo)}
+  .star.on{color:var(--gold);background:rgba(240,179,90,.14);border-color:var(--gold)}
+
+  .empty{grid-column:1/-1;text-align:center;padding:70px 20px;color:var(--muted-dim)}
+  .empty b{font-family:var(--serif);font-size:1.4rem;color:var(--muted);display:block;margin-bottom:8px}
+
+  /* ---------- footer ---------- */
+  footer{text-align:center;padding:0 0 60px;color:var(--muted-dim);font-size:.7rem;position:relative;z-index:2;line-height:2}
+  footer a{color:var(--gold);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  /* ---------- modal ---------- */
+  .overlay{
+    position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;
+    background:rgba(5,4,8,.78);backdrop-filter:blur(6px)
+  }
+  .overlay.open{display:flex;animation:fade .25s ease}
+  @keyframes fade{from{opacity:0}to{opacity:1}}
+  .modal{
+    --accent:#ccc;
+    width:min(560px,100%);max-height:90vh;overflow:auto;border-radius:18px;
+    background:linear-gradient(180deg,#16121c,#0e0b13);
+    border:1px solid color-mix(in srgb,var(--accent) 30%, transparent);
+    box-shadow:0 40px 100px rgba(0,0,0,.7), 0 0 60px color-mix(in srgb,var(--accent) 18%, transparent);
+    animation:pop .3s cubic-bezier(.2,.9,.3,1)
+  }
+  @keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+  .modal .top{
+    position:relative;height:230px;display:grid;place-items:center;overflow:hidden;
+    background:
+      radial-gradient(70% 90% at 50% 0%, color-mix(in srgb,var(--accent) 30%, transparent), transparent 65%),
+      linear-gradient(180deg,#06040b,#0d0a14)
+  }
+  .modal .top .bigpet{width:148px;height:148px;animation:bob 4s ease-in-out infinite;
+    filter:drop-shadow(0 0 26px color-mix(in srgb,var(--accent) 80%, transparent)) drop-shadow(0 10px 14px rgba(0,0,0,.6))}
+  .modal .top .bigpet svg{width:100%;height:100%;image-rendering:pixelated}
+  .modal .top .bigpet img{width:100%;height:100%;object-fit:contain;image-rendering:pixelated;display:block}
+  .close{
+    position:absolute;top:14px;right:14px;width:34px;height:34px;border-radius:8px;cursor:pointer;
+    background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.12);color:var(--text);font-size:1rem
+  }
+  .close:hover{background:rgba(0,0,0,.7)}
+  .modal .body{padding:24px 26px 26px}
+  .modal .body .hd{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+  .modal .body h2{font-family:var(--serif);font-size:2.1rem;font-weight:900;letter-spacing:-.02em}
+  .modal .body .sp{font-size:.7rem;color:var(--accent);letter-spacing:.05em}
+  .modal .body .d{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.6;color:#c9c0ae;margin:14px 0 18px}
+  .grid2{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}
+  .grid2 .b{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:9px;padding:11px 8px;text-align:center}
+  .grid2 .b b{display:block;font-family:var(--serif);font-size:1.15rem;font-weight:900}
+  .grid2 .b span{font-size:.54rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-dim);display:block;margin-top:4px}
+  .cmd{
+    display:flex;align-items:center;gap:10px;background:#06050a;border:1px solid var(--line);
+    border-radius:10px;padding:13px 14px;margin-bottom:8px;font-size:.8rem
+  }
+  .cmd code{flex:1;color:var(--text)}
+  .cmd code b{color:var(--accent)}
+  .cmd button{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+    padding:7px 12px;border-radius:7px;color:#2a1d08;font-weight:700;
+    background:linear-gradient(150deg,var(--frame-hi),var(--frame));border:none
+  }
+  .modal .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;font-size:.66rem;color:var(--muted);flex-wrap:wrap}
+  .modal .foot .lic{padding:4px 9px;border:1px solid var(--line);border-radius:6px;letter-spacing:.08em}
+
+  /* ---------- toast ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
+    z-index:1100;opacity:0;pointer-events:none;transition:opacity .25s, transform .25s;
+    background:linear-gradient(150deg,#1d1726,#120e18);border:1px solid var(--frame-lo);
+    color:var(--text);padding:13px 20px;border-radius:10px;font-size:.78rem;
+    box-shadow:0 16px 40px rgba(0,0,0,.6);display:flex;align-items:center;gap:10px
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .ck{color:var(--gold)}
+
+  @media(max-width:560px){
+    .hero .stats{gap:26px}
+    .grid2{grid-template-columns:repeat(2,1fr)}
+    .modal .body h2{font-size:1.7rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <!-- top bar -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark"><svg viewBox="0 0 12 12" id="logoSvg"></svg></div>
+      <div>
+        <b>Pet<span>Hub</span></b>
+        <small>Codex Pet Registry</small>
+      </div>
+    </div>
+    <div class="top-actions">
+      <div class="pill"><span class="dot"></span>Open Source</div>
+      <div class="pill" id="pillStars">★ — stars</div>
+      <button class="ghost-btn" id="contribBtn">⊹ Contribute a Pet</button>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <header class="hero">
+    <div class="eyebrow">A curated cabinet of digital companions</div>
+    <h1>The Codex&nbsp;Pet<br><em>Cabinet</em></h1>
+    <p>Collect, share and download open-source Codex Pets — tiny pixel familiars that live in your terminal. Browse the specimens below, then summon one with a single command.</p>
+    <div class="stats">
+      <div class="stat"><b id="sPets">0</b><span>Specimens</span></div>
+      <div class="stat"><b id="sDl">0</b><span>Downloads</span></div>
+      <div class="stat"><b id="sStars">0</b><span>Total Stars</span></div>
+      <div class="stat"><b id="sCon">0</b><span>Contributors</span></div>
+    </div>
+  </header>
+
+  <!-- toolbar -->
+  <div class="toolbar">
+    <div class="search">
+      <span class="ic">⌕</span>
+      <input id="search" type="text" placeholder="> filter pets by name or tag…" autocomplete="off">
+    </div>
+    <div class="chips" id="chips"></div>
+    <select class="sort" id="sort">
+      <option value="stars">Sort: Most Starred</option>
+      <option value="downloads">Sort: Most Downloaded</option>
+      <option value="name">Sort: A → Z</option>
+      <option value="rarity">Sort: Rarity</option>
+    </select>
+  </div>
+
+  <!-- cabinet -->
+  <div class="cabinet-frame">
+    <div class="plaque">
+      <h2>⌖ Specimen Cabinet — Collection No.1</h2>
+      <span id="plaqueCount">Cataloguing…</span>
+    </div>
+    <div class="cabinet">
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+
+  <footer>
+    PetHub is a free &amp; open-source pet registry · MIT Licensed · Pets are community-contributed<br>
+    <a href="#" id="footGit">github.com/JiChaoSong/PetHub</a> &nbsp;·&nbsp; <a href="#" id="footDocs">Read the contribution guide</a>
+  </footer>
+</div>
+
+<!-- modal -->
+<div class="overlay" id="overlay">
+  <div class="modal" id="modal">
+    <div class="top">
+      <button class="close" id="closeBtn">✕</button>
+      <div class="bigpet" id="mPet"></div>
+    </div>
+    <div class="body">
+      <div class="hd">
+        <h2 id="mName"></h2>
+        <span class="sp" id="mSp"></span>
+        <span id="mRarity"></span>
+      </div>
+      <p class="d" id="mDesc"></p>
+      <div class="grid2">
+        <div class="b"><b id="mStars">0</b><span>Stars</span></div>
+        <div class="b"><b id="mDl">0</b><span>Downloads</span></div>
+        <div class="b"><b id="mCat">—</b><span>Family</span></div>
+        <div class="b"><b id="mVer">—</b><span>Version</span></div>
+      </div>
+      <div class="cmd">
+        <code>$ <b id="mCmd">codex pet add</b></code>
+        <button id="mCopy">Copy</button>
+      </div>
+      <div class="foot">
+        <span>Maintained by <b id="mAuthor" style="color:var(--text)"></b></span>
+        <span class="lic">MIT LICENSE</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="ck">✓</span><span id="toastMsg"></span></div>
+
+<script>
+/* ---------------- Gallery config ---------------- */
+const REPO_URL = "https://github.com/JiChaoSong/PetHub";
+const DATA_URL = "./pets.json";
+const RARITY_RANK = { Legendary:4, Epic:3, Rare:2, Common:1 };
+const DEMO_PETS = [
+  { id:"pixl", name:"Pixl", displayName:"Pixl", species:"codex.slime", cat:"Slime", category:"Slime", accent:"#62d96b", rarity:"Common",
+    desc:"A gelatinous companion that purrs in hexadecimal and never leaves a trace in your stack traces.",
+    description:"A gelatinous companion that purrs in hexadecimal and never leaves a trace in your stack traces.",
+    tags:["slime","cozy","starter"], stars:1284, downloads:9402, ver:"v2.1.0", version:"v2.1.0", author:"@glob", command:"codex pet add pixl",
+    palette:{g:"#62d96b",w:"#ffffff",p:"#15321a",b:"#ff9bb0"},
+    art:["............","....g..g....","...gg..gg...","..gggggggg..",".gggggggggg.",".gggggggggg.","gggwwggwwggg","ggwppwwppwgg","ggwwwwwwwwgg","gbggggggggbg",".gggggggggg.","..gggggggg.."] }
+];
+
+/* ---------------- state ---------------- */
+let PETS = [];
+let activeCat = "All";
+let query = "";
+let sortBy = "stars";
+const starred = new Set(JSON.parse(localStorage.getItem("pethub:starred") || "[]"));
+
+/* ---------------- safe helpers ---------------- */
+function esc(v){
+  return String(v ?? "").replace(/[&<>'"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+}
+function slug(v){
+  return String(v || "pet").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+}
+function fmt(n){
+  n = Number(n || 0);
+  return n >= 1000 ? (n/1000).toFixed(n>=10000?0:1).replace(/\.0$/,"")+"k" : ""+n;
+}
+function saveStars(){ localStorage.setItem("pethub:starred", JSON.stringify([...starred])); }
+function resolveAssetPath(pet, path){
+  if(!path) return "";
+  if(/^https?:\/\//i.test(path) || path.startsWith("data:")) return path;
+  if(path.startsWith("./") || path.startsWith("/")) return path;
+  const base = pet.basePath || (pet.id ? `pets/${pet.id}/` : "");
+  return base + path;
+}
+function normalizePet(raw){
+  const id = raw.id || slug(raw.name || raw.displayName);
+  const name = raw.name || raw.displayName || id;
+  const desc = raw.desc || raw.description || "A community-contributed Codex Pet.";
+  return {
+    ...raw,
+    id,
+    name,
+    displayName: raw.displayName || name,
+    species: raw.species || raw.type || "codex.pet",
+    cat: raw.cat || raw.category || raw.family || "Community",
+    category: raw.category || raw.cat || raw.family || "Community",
+    accent: raw.accent || raw.color || "#cccccc",
+    rarity: raw.rarity || "Common",
+    desc,
+    description: raw.description || desc,
+    tags: Array.isArray(raw.tags) ? raw.tags : [],
+    stars: Number(raw.stars || 0),
+    downloads: Number(raw.downloads || 0),
+    ver: raw.ver || raw.version || "v1.0.0",
+    version: raw.version || raw.ver || "v1.0.0",
+    author: raw.author || raw.maintainer || "Community",
+    command: raw.command || `codex pet add ${id}`,
+    basePath: raw.basePath || `pets/${id}/`,
+    license: raw.license || "MIT"
+  };
+}
+
+/* ---------------- pixel / asset renderer ---------------- */
+function renderArt(pet){
+  if(!pet.art || !pet.palette) return "";
+  let r="";
+  pet.art.forEach((row,y)=>{
+    for(let x=0;x<row.length;x++){
+      const ch=row[x];
+      if(ch==="."||ch===" ") continue;
+      const c=pet.palette[ch];
+      if(!c) continue;
+      r+=`<rect x="${x}" y="${y}" width="1.03" height="1.03" fill="${esc(c)}"/>`;
+    }
+  });
+  return `<svg viewBox="0 0 12 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">${r}</svg>`;
+}
+function renderPetVisual(pet){
+  const art = renderArt(pet);
+  if(art) return art;
+  const image = pet.previewPath || pet.thumbnailPath || pet.iconPath || pet.spritesheetPath;
+  if(image){
+    return `<img src="${esc(resolveAssetPath(pet, image))}" alt="${esc(pet.displayName || pet.name)} preview" loading="lazy">`;
+  }
+  return `<svg viewBox="0 0 12 12" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="6" height="6" rx="1" fill="${esc(pet.accent)}"/><rect x="4" y="5" width="1" height="1" fill="#fff"/><rect x="7" y="5" width="1" height="1" fill="#fff"/><rect x="5" y="8" width="2" height="1" fill="#fff" opacity=".7"/></svg>`;
+}
+
+/* ---------------- data loading ---------------- */
+async function loadPets(){
+  try{
+    const res = await fetch(DATA_URL, { cache:"no-store" });
+    if(!res.ok) throw new Error(`pets.json ${res.status}`);
+    const data = await res.json();
+    const list = Array.isArray(data) ? data : data.pets;
+    if(!Array.isArray(list) || !list.length) throw new Error("empty catalog");
+    return list.map(normalizePet);
+  }catch(err){
+    console.warn("PetHub: failed to load pets.json, using demo catalog", err);
+    return DEMO_PETS.map(normalizePet);
+  }
+}
+
+/* ---------------- boot ---------------- */
+async function boot(){
+  PETS = await loadPets();
+
+  const logoSvg = document.getElementById("logoSvg");
+  if(logoSvg && PETS[0]){
+    logoSvg.outerHTML = renderPetVisual(PETS[0]).replace("<svg ", '<svg id="logoSvg" ');
+  }
+
+  const chipsEl = document.getElementById("chips");
+  const cats = ["All", ...Array.from(new Set(PETS.map(p=>p.cat)))];
+  chipsEl.innerHTML = "";
+  cats.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="chip"+(c==="All"?" on":"");
+    b.textContent=c;
+    b.onclick=()=>{
+      activeCat=c;
+      [...chipsEl.children].forEach(x=>x.classList.remove("on"));
+      b.classList.add("on");
+      draw();
+    };
+    chipsEl.appendChild(b);
+  });
+
+  const totalDl=PETS.reduce((a,p)=>a+p.downloads,0);
+  const totalStars=PETS.reduce((a,p)=>a+p.stars,0);
+  const contributors=new Set(PETS.map(p=>p.author)).size;
+  animateNum(document.getElementById("sPets"),PETS.length);
+  animateNum(document.getElementById("sDl"),totalDl,true);
+  animateNum(document.getElementById("sStars"),totalStars,true);
+  animateNum(document.getElementById("sCon"),contributors);
+  document.getElementById("pillStars").textContent="★ "+fmt(totalStars)+" stars";
+
+  document.getElementById("search").addEventListener("input",e=>{query=e.target.value;draw();});
+  document.getElementById("sort").addEventListener("change",e=>{sortBy=e.target.value;draw();});
+  document.getElementById("contribBtn").onclick=()=>window.open(REPO_URL+"#how-to-add-a-new-pet","_blank","noopener");
+  document.getElementById("footGit").href=REPO_URL;
+  document.getElementById("footGit").textContent="github.com/JiChaoSong/PetHub";
+  document.getElementById("footDocs").href=REPO_URL+"#how-to-add-a-new-pet";
+
+  draw();
+}
+
+function animateNum(el,target,abbr){
+  const dur=1100, t0=performance.now();
+  function step(t){
+    const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);
+    const v=Math.round(target*e);
+    el.textContent=abbr?fmt(v):v.toLocaleString();
+    if(k<1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/* ---------------- draw grid ---------------- */
+const grid=document.getElementById("grid");
+function draw(){
+  let list=PETS.filter(p=>{
+    const okCat=activeCat==="All"||p.cat===activeCat;
+    const q=query.trim().toLowerCase();
+    const okQ=!q || p.name.toLowerCase().includes(q) || p.displayName.toLowerCase().includes(q) || p.tags.some(t=>String(t).toLowerCase().includes(q)) || p.cat.toLowerCase().includes(q);
+    return okCat&&okQ;
+  });
+  list.sort((a,b)=>{
+    if(sortBy==="name") return a.name.localeCompare(b.name);
+    if(sortBy==="rarity") return (RARITY_RANK[b.rarity]||0)-(RARITY_RANK[a.rarity]||0) || b.stars-a.stars;
+    return (b[sortBy]||0)-(a[sortBy]||0);
+  });
+
+  document.getElementById("plaqueCount").textContent =
+    list.length+" of "+PETS.length+" specimens on display";
+
+  if(!list.length){
+    grid.innerHTML=`<div class="empty"><b>No specimens found</b>Try a different search or category.</div>`;
+    return;
+  }
+
+  grid.innerHTML="";
+  list.forEach((p,i)=>{
+    const idx=PETS.indexOf(p)+1;
+    const visual=renderPetVisual(p);
+    const card=document.createElement("article");
+    card.className="specimen";
+    card.style.setProperty("--accent",p.accent);
+    card.style.animationDelay=(i*55)+"ms";
+    const isStar=starred.has(p.id);
+    card.innerHTML=`
+      <div class="niche">
+        <div class="spot"></div>
+        <span class="rarity r-${esc(String(p.rarity).toLowerCase())}">${esc(p.rarity)}</span>
+        <span class="idx">№${String(idx).padStart(2,"0")}</span>
+        <div class="pet">${visual}</div>
+        <div class="shelf"></div>
+        <div class="pet refl">${visual}</div>
+      </div>
+      <div class="label">
+        <div class="namerow"><h3>${esc(p.displayName || p.name)}</h3><span class="species">${esc(p.species)}</span></div>
+        <p class="desc">${esc(p.desc)}</p>
+        <div class="tags">${p.tags.map(t=>`<i>#${esc(t)}</i>`).join("")}</div>
+        <div class="meta"><b>★ ${fmt(p.stars+(isStar?1:0))}</b> <b>⤓ ${fmt(p.downloads)}</b><span class="v">${esc(p.ver)}</span></div>
+        <div class="actions">
+          <button class="dl" data-act="dl"><b>$</b> ${esc(p.command)}</button>
+          <button class="star${isStar?" on":""}" data-act="star">${isStar?"★":"☆"}</button>
+        </div>
+      </div>`;
+
+    card.addEventListener("click",(e)=>{
+      const act=e.target.closest("[data-act]");
+      if(act){
+        e.stopPropagation();
+        if(act.dataset.act==="dl"){
+          copyCmd(p.command);
+          toast(`Command copied · ${p.displayName || p.name}`);
+        }else{
+          toggleStar(p);
+        }
+        return;
+      }
+      openModal(p);
+    });
+    grid.appendChild(card);
+  });
+}
+
+function toggleStar(p){
+  if(starred.has(p.id)) starred.delete(p.id);
+  else { starred.add(p.id); toast(`You starred ${p.displayName || p.name} ★`); }
+  saveStars();
+  draw();
+}
+
+/* ---------------- modal ---------------- */
+const overlay=document.getElementById("overlay");
+const modal=document.getElementById("modal");
+function openModal(p){
+  modal.style.setProperty("--accent",p.accent);
+  document.getElementById("mPet").innerHTML=renderPetVisual(p);
+  document.getElementById("mName").textContent=p.displayName || p.name;
+  document.getElementById("mSp").textContent=p.species;
+  document.getElementById("mRarity").className="rarity r-"+String(p.rarity).toLowerCase();
+  document.getElementById("mRarity").textContent=p.rarity;
+  document.getElementById("mDesc").textContent=p.desc;
+  document.getElementById("mStars").textContent=fmt(p.stars+(starred.has(p.id)?1:0));
+  document.getElementById("mDl").textContent=fmt(p.downloads);
+  document.getElementById("mCat").textContent=p.cat;
+  document.getElementById("mVer").textContent=p.ver;
+  document.getElementById("mCmd").textContent=p.command;
+  document.getElementById("mAuthor").textContent=p.author;
+  document.getElementById("mCopy").onclick=()=>{copyCmd(p.command);toast(`Command for ${p.displayName || p.name} copied`);};
+  overlay.classList.add("open");
+}
+function closeModal(){overlay.classList.remove("open");}
+document.getElementById("closeBtn").onclick=closeModal;
+overlay.addEventListener("click",e=>{if(e.target===overlay)closeModal();});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+
+/* ---------------- helpers ---------------- */
+function copyCmd(txt){
+  try{
+    if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  }catch(e){}
+}
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById("toast");
+  document.getElementById("toastMsg").textContent=msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+boot();
+</script>
+</body>
+</html>
