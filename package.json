@@ -1,6 +1,6 @@
 {
   "name": "@talcon/pethub",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CLI for installing Codex Pets from PetHub.",
   "type": "module",
   "bin": {
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JiChaoSong/PetHub.git"
+    "url": "git+https://github.com/talconpro/PetHub.git"
   },
   "keywords": [
     "pethub",
